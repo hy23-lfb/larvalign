@@ -56,7 +56,9 @@ t=toc;
 logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
 display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);    
 
-
+mkdir(resultStage1Dir);     
+copyfile(TransformParamPreRegPFN, resultStage1Dir);
+%{
 %% Nonlinear registration (DIR)  
 tic
 mkdir(resultStage1Dir);     
@@ -71,7 +73,7 @@ assert( (statusDIR==0 && exist([resultStage1Dir '\' transformLabel0],'file')),..
 t=toc;
 logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
 display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']); 
-
+%}
    
 
 %% Computing composed dense deffield 
