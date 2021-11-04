@@ -1,4 +1,4 @@
-function CombineTransformations( rootpath, deffieldPN, LogFileID)
+function CombineTransformations( rootpath, deffieldPN, ChannelImgPFN, LogFileID)
 %%
 %% Computation of combined transformation and dense deformation field
 %%
@@ -6,22 +6,28 @@ function CombineTransformations( rootpath, deffieldPN, LogFileID)
 %% SEAM@2016-10-17
 %%
 try
-% dirs & exe
-warning('off','MATLAB:MKDIR:DirectoryExists');
-exeDir = [rootpath '\resources\exe\'];
-tfxExe = ['"' exeDir 'transformix.exe" '];
-
-logstr = [datestr(datetime) sprintf(' -- Combining transformations and generating deformation field...')];
-display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
-tic
-shellTfx = [tfxExe ' -def all -out ' '"' deffieldPN '"' ' -tp ' '"' deffieldPN '\TransformParameters.0.txt' '"' ' -priority idle'];  
-[status,cmdout] = system( shellTfx );
-assert(status==0, [datestr(datetime) ' -- Combining transformations failed.\n' elxError(cmdout)] )    
-t=toc;
-logstr = [datestr(datetime) sprintf(' -- Generating deformation field took: %g s' ,t)];
-display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);     
-
-catch ME; 
+    % dirs & exe
+    warning('off','MATLAB:MKDIR:DirectoryExists');
+    exeDir = [rootpath '\resources\exe\'];
+    tfxExe = ['"' exeDir 'transformix.exe" '];
+    
+    % input image channels
+    srcNPPFN = ChannelImgPFN.WNP;
+    srcNTPFN = ChannelImgPFN.WNT;
+    srcGEPFN = ChannelImgPFN.WGE;
+    
+    logstr = [datestr(datetime) sprintf(' -- Combining transformations and generating deformation field...')];
+    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    tic
+    shellTfx = [tfxExe ' -def all -out ' '"' deffieldPN '"' ' -in ' '"' srcNPPFN '"' ' -tp ' '"' deffieldPN '\TransformParameters.0.txt' '"' ' -priority idle'];
+    fprintf(" -- Tranformix command is: %s\n", shellTfx);
+    [status,cmdout] = system( shellTfx );
+    assert(status==0, [datestr(datetime) ' -- Combining transformations failed.\n' elxError(cmdout)] )
+    t=toc;
+    logstr = [datestr(datetime) sprintf(' -- Generating deformation field took: %g s' ,t)];
+    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    
+catch ME;
     throwAsCaller(ME)
 end
 

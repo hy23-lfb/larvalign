@@ -9,8 +9,8 @@ function out = xmlstringinput(xString,isFullSearch,varargin)
 %   to an XML process.   STRING can be a URN, full path name,
 %   or file name.
 %
-%   If STRING is a  filename, FULLSEARCH will control how 
-%   the full path is built.  If TRUE, the XMLSTRINGINPUT 
+%   If STRING is a  filename, FULLSEARCH will control how
+%   the full path is built.  If TRUE, the XMLSTRINGINPUT
 %   will search the entire MATLAB path for the filename
 %   and return an error if the file can not be found.
 %   This is useful for source documents which are assumed
@@ -25,7 +25,7 @@ function out = xmlstringinput(xString,isFullSearch,varargin)
 %Note: the varargin in the signature is to support a legacy input argument
 %which returned the result as a java.io.File object.  This turned out to
 %be worse than useless, causing multiple encoding and escaping problems so
-%it was removed.  Leave the varargin here in case anyone was calling 
+%it was removed.  Leave the varargin here in case anyone was calling
 %the function with the third argument.
 
 if isempty(xString)

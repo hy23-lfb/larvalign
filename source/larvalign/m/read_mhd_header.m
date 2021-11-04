@@ -17,13 +17,13 @@ info.Format='MHA';
 info.CompressedData='false';
 info.TransformMatrix = [];
 info.CenterOfRotation=[];
-info.Offset=[0 0 0]; 
+info.Offset=[0 0 0];
 readelementdatafile=false;
 while(~readelementdatafile)
     str=fgetl(fid);
     s=find(str=='=',1,'first');
     if(~isempty(s))
-        type=str(1:s-1); 
+        type=str(1:s-1);
         data=str(s+1:end);
         while(type(end)==' '); type=type(1:end-1); end
         while(data(1)==' '); data=data(2:end); end
@@ -77,11 +77,11 @@ while(~readelementdatafile)
 end
 
 if ~numel(info.TransformMatrix)
-   info.TransformMatrix = reshape(eye(info.NumberOfDimensions), 1,info.NumberOfDimensions*info.NumberOfDimensions);
+    info.TransformMatrix = reshape(eye(info.NumberOfDimensions), 1,info.NumberOfDimensions*info.NumberOfDimensions);
 end
 
 if ~numel(info.CenterOfRotation)
-  info.CenterOfRotation = zeros(1,info.NumberOfDimensions);
+    info.CenterOfRotation = zeros(1,info.NumberOfDimensions);
 end
 
 
