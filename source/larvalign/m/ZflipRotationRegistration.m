@@ -140,7 +140,7 @@ if (status2~=0 && status4~=0)  % run prereg w/o SDT
     FinalMetricValue.zflipIntens = GetFinalMetricValue( Zflip_Intens_PN );       
 end
 end
-delete([PreRegDir '\Mask_SDT.mhd'],[PreRegDir '\Mask_SDT.zraw'])
+%delete([PreRegDir '\Mask_SDT.mhd'],[PreRegDir '\Mask_SDT.zraw'])
 
 
 

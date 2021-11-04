@@ -267,7 +267,7 @@ fprintf(fileID,'%s\n',stringBuffer);
 fclose(fileID);    
 
 [status,cmdout] = system([FijiExe ' --headless -macro "' sep(tmpDir) scanID '_lsm2mhd.txt"']); 
-[status,cmdout] = system([ 'del  /Q  "' tmpDir scanID '_lsm2mhd.txt"']);  
+%[status,cmdout] = system([ 'del  /Q  "' tmpDir scanID '_lsm2mhd.txt"']);  
 
 catch ME    
     logstr = [datestr(datetime) sprintf(' -- Conversion of LSM/TIFF file failed.')];
@@ -500,9 +500,9 @@ if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImg
     outNTDir = [OutputDir 'RegisteredScans\NT\'];
     outGEDir = [OutputDir 'RegisteredScans\GE\'];    
     delete( [outNPDir scanID '.*'], [outNTDir scanID '.*'], [outGEDir scanID '.*'] );
-    [status, message, messageid] = rmdir(outNPDir);
-    [status, message, messageid] = rmdir(outNTDir);
-    [status, message, messageid] = rmdir(outGEDir);    
+    %[status, message, messageid] = rmdir(outNPDir);
+    %[status, message, messageid] = rmdir(outNTDir);
+    %[status, message, messageid] = rmdir(outGEDir);    
     
 end
 
@@ -510,8 +510,8 @@ end
 %% Clean up
 logstr = [datestr(datetime) sprintf(' -- Cleaning up...')];
 display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']); 
-[status, message, messageid] = rmdir(resultDir,'s'); 
-[status, message, messageid] = rmdir(fileparts(resultDir));    
+%[status, message, messageid] = rmdir(resultDir,'s'); 
+%[status, message, messageid] = rmdir(fileparts(resultDir));    
 logstr = [datestr(datetime) sprintf(' -- Finished processing scan: %s.\n\n', scanID)];
 display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']); 
 fclose(LogFileID);
