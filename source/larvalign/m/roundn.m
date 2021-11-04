@@ -36,7 +36,7 @@ if n < 0
     % Compute the inverse of the power of 10 to which input will be
     % rounded. Because n < 0, p will be greater than 1.
     p = 10 ^ -n;
-
+    
     % Round x to the nearest multiple of 1/p.
     x = round(p * x) / p;
 elseif n > 0

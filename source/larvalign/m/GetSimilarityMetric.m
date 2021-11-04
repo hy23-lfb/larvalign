@@ -4,15 +4,15 @@ function GetSimilarityMetric(rootpath, IR_PFN, scanID, RegOutputDir, AtlasTempla
 %% SEAM@2016-08-31
 %%
 try
-%% Evaluate pairwise s to atlas registrations
-MaskedMetricValueScan = {scanID, [NaN,NaN] };
-if ~exist(IR_PFN ,'file')
-    return;
-end
-MaskedMetricValueScan = {scanID, GetMaskedMetricValue(rootpath, AtlasTemplatePFN, IR_PFN, MaskPFN) };
-save([RegOutputDir  matName '.mat' ], 'MaskedMetricValueScan');
-
-catch ME;  
+    %% Evaluate pairwise s to atlas registrations
+    MaskedMetricValueScan = {scanID, [NaN,NaN] };
+    if ~exist(IR_PFN ,'file')
+        return;
+    end
+    MaskedMetricValueScan = {scanID, GetMaskedMetricValue(rootpath, AtlasTemplatePFN, IR_PFN, MaskPFN) };
+    save([RegOutputDir  matName '.mat' ], 'MaskedMetricValueScan');
+    
+catch ME;
     throwAsCaller(ME)
 end
 

@@ -27,17 +27,17 @@ function varargout = larvalign_GUI(varargin)
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
-                   'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @larvalign_GUI_OpeningFcn, ...
-                   'gui_OutputFcn',  @larvalign_GUI_OutputFcn, ...
-                   'gui_LayoutFcn',  [] , ...
-                   'gui_Callback',   []);
+    'gui_Singleton',  gui_Singleton, ...
+    'gui_OpeningFcn', @larvalign_GUI_OpeningFcn, ...
+    'gui_OutputFcn',  @larvalign_GUI_OutputFcn, ...
+    'gui_LayoutFcn',  [] , ...
+    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
 
 if nargout
-    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});    
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
 else
     gui_mainfcn(gui_State, varargin{:});
 end
@@ -63,7 +63,7 @@ uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = larvalign_GUI_OutputFcn(hObject, eventdata, handles) 
+function varargout = larvalign_GUI_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -157,16 +157,16 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-    Larvalign_callback.OutputDir = strtrim(handles.edit1.String);
-    Larvalign_callback.LSM_PFN = strtrim(handles.edit2.String);
-    Larvalign_callback.ChannelPosNP_NT_GE = strtrim(handles.edit3.String);
-    Larvalign_callback.LandmarksTemplatePFN  = strtrim(handles.edit4.String);
-    Larvalign_callback.LandmarksSubjectPFN  = strtrim(handles.edit5.String);
-    Larvalign_callback.Mode='single';                      
-    allItems = get(handles.popupmenu4,'string');
-    idx = get(handles.popupmenu4,'Value');
-    Larvalign_callback.CPUGPU = allItems{idx};            
-    handles.output=Larvalign_callback;    
+Larvalign_callback.OutputDir = strtrim(handles.edit1.String);
+Larvalign_callback.LSM_PFN = strtrim(handles.edit2.String);
+Larvalign_callback.ChannelPosNP_NT_GE = strtrim(handles.edit3.String);
+Larvalign_callback.LandmarksTemplatePFN  = strtrim(handles.edit4.String);
+Larvalign_callback.LandmarksSubjectPFN  = strtrim(handles.edit5.String);
+Larvalign_callback.Mode='single';
+allItems = get(handles.popupmenu4,'string');
+idx = get(handles.popupmenu4,'Value');
+Larvalign_callback.CPUGPU = allItems{idx};
+handles.output=Larvalign_callback;
 
 
 % Update handles structure
@@ -175,7 +175,7 @@ guidata(hObject, handles);
 % Use UIRESUME instead of delete because the OutputFcn needs
 % to get the updated handles structure.
 uiresume(handles.figure1);
- 
+
 
 
 function edit4_Callback(hObject, eventdata, handles)
@@ -297,17 +297,17 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    Larvalign_callback.OutputDir = strtrim(handles.edit6.String);
-    Larvalign_callback.InputDir = strtrim(handles.edit7.String);
-    Larvalign_callback.LandmarksTemplatePFN  = strtrim(handles.edit14.String);
-    Larvalign_callback.LandmarksSubjectPN  = strtrim(handles.edit13.String);     
-    Larvalign_callback.ChannelPosNP_NT_GE = strtrim(handles.edit8.String);
-    Larvalign_callback.Mode = 'batch';  
-    allItems = get(handles.popupmenu5,'string');
-    idx = get(handles.popupmenu5,'Value');
-    Larvalign_callback.CPUGPU = allItems{idx};            
-    handles.output=Larvalign_callback;
-       
+Larvalign_callback.OutputDir = strtrim(handles.edit6.String);
+Larvalign_callback.InputDir = strtrim(handles.edit7.String);
+Larvalign_callback.LandmarksTemplatePFN  = strtrim(handles.edit14.String);
+Larvalign_callback.LandmarksSubjectPN  = strtrim(handles.edit13.String);
+Larvalign_callback.ChannelPosNP_NT_GE = strtrim(handles.edit8.String);
+Larvalign_callback.Mode = 'batch';
+allItems = get(handles.popupmenu5,'string');
+idx = get(handles.popupmenu5,'Value');
+Larvalign_callback.CPUGPU = allItems{idx};
+handles.output=Larvalign_callback;
+
 
 
 % Update handles structure
@@ -334,10 +334,10 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % [filename, pathname] = uigetfile({'*.lsm;*.tiff;*.tif;','*.*'},'File Selector');
 [filename, pathname] = uigetfile( ...
-{'*.lsm;*.tiff;*.tif;',...
- 'Image';
-   '*.*',  'All Files (*.*)'}, ...
-   'Pick a file');
+    {'*.lsm;*.tiff;*.tif;',...
+    'Image';
+    '*.*',  'All Files (*.*)'}, ...
+    'Pick a file');
 set(handles.edit2, 'String', fullfile(pathname,filename) );
 
 
@@ -347,10 +347,10 @@ function pushbutton5_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [filename, pathname] = uigetfile( ...
-{'*.points;',...
- 'Fiji Landmark plugin';
-   '*.*',  'All Files (*.*)'}, ...
-   'Pick a file');
+    {'*.points;',...
+    'Fiji Landmark plugin';
+    '*.*',  'All Files (*.*)'}, ...
+    'Pick a file');
 set(handles.edit4, 'String', fullfile(pathname,filename) );
 
 
@@ -360,10 +360,10 @@ function pushbutton6_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [filename, pathname] = uigetfile( ...
-{'*.points;',...
- 'Fiji Landmark plugin';
-   '*.*',  'All Files (*.*)'}, ...
-   'Pick a file');
+    {'*.points;',...
+    'Fiji Landmark plugin';
+    '*.*',  'All Files (*.*)'}, ...
+    'Pick a file');
 set(handles.edit5, 'String', fullfile(pathname,filename) );
 
 
@@ -507,10 +507,10 @@ function pushbutton13_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [filename, pathname] = uigetfile( ...
-{'*.points;',...
- 'Fiji Landmark plugin';
-   '*.*',  'All Files (*.*)'}, ...
-   'Pick a file');
+    {'*.points;',...
+    'Fiji Landmark plugin';
+    '*.*',  'All Files (*.*)'}, ...
+    'Pick a file');
 set(handles.edit14, 'String', fullfile(pathname,filename) );
 
 
