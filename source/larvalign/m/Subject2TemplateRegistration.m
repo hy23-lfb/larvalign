@@ -56,7 +56,7 @@ try
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
-    
+    %{
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -71,7 +71,7 @@ try
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
-    
+    %}
     
     
     %% Computing composed dense deffield
