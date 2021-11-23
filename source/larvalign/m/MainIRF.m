@@ -234,7 +234,7 @@ display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
 
 % LSMchannelNP
 nbLSMchannels=1;
-stringNP=[ ' selectWindow("C' LSMchannelNP '-' scanID '.' InputImgExt '"); '...
+stringNP=[ ' selectWindow("' scanID '.' InputImgExt '"); '...
            ' run("MHD/MHA ...", "save=[' sep(NPDir) scanID  '.mhd]"); '];              
 stringNT='';
 stringGE='';
@@ -255,8 +255,8 @@ end
 if strcmp(InputImgExt,'tiff')||strcmp(InputImgExt,'tif')
 fijiOpen1=[' run("ImageJ2...", "scijavaio=true");  open("' sep(LSM_PFN) '");'];
 end
-fijiproc1=[' run("Make Composite", "display=Composite"); run("Split Channels"); '...
-    stringNP...
+
+    fijiproc1=[stringNP...
     stringNT...
     stringGE...
     ' run("Quit"); '];
@@ -390,7 +390,7 @@ display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
 [path,name,LMText] = fileparts(LandmarksTemplatePFN);
 [path,name,LMSext] = fileparts(LandmarksSubjectPFN);
 if strcmp(LMText,'.points') && strcmp(LMSext,'.points')
-tmp = Fiji_XMLread( strrep(LandmarksTemplatePFN, '/', '\') ); 
+tmp = Fiji_XMLread( strrep(LandmarksTemplatePFN, '/', '\') );
 landmarkData.Template.XML = tmp(2).Children;    
 for i = 1:size(landmarkData.Template.XML,2)
     if strcmp(tmp(2).Children(i).Attributes(2).Value,'false')
@@ -401,7 +401,7 @@ for i = 1:size(landmarkData.Template.XML,2)
     landmarkData.Template.label{i,1} = landmarkData.Template.XML(i).Attributes(1).Value;
     landmarkData.Template.ID=scanID;
 end
-tmp = Fiji_XMLread( strrep(LandmarksSubjectPFN, '/', '\') ); 
+tmp = Fiji_XMLread( strrep(LandmarksSubjectPFN, '/', '\') );
 landmarkData.Subject.XML = tmp(2).Children;    
 for i = 1:size(landmarkData.Subject.XML,2)
     if strcmp(tmp(2).Children(i).Attributes(2).Value,'false')
@@ -498,8 +498,8 @@ if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImg
     delete( [outDir_fiji scanID '_mhd2tif.txt'], [outDir_fiji 'np.tif'], [outDir_fiji 'nt.tif'], [outDir_fiji 'ge.tif'] )    
     outNPDir = [OutputDir 'RegisteredScans\NP\'];
     outNTDir = [OutputDir 'RegisteredScans\NT\'];
-    outGEDir = [OutputDir 'RegisteredScans\GE\'];    
-    delete( [outNPDir scanID '.*'], [outNTDir scanID '.*'], [outGEDir scanID '.*'] );
+    outGEDir = [OutputDir 'RegisteredScans\GE\'];
+    %delete( [outNPDir scanID '.*'], [outNTDir scanID '.*'], [outGEDir scanID '.*'] );
     %[status, message, messageid] = rmdir(outNPDir);
     %[status, message, messageid] = rmdir(outNTDir);
     %[status, message, messageid] = rmdir(outGEDir);    
