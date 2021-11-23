@@ -1,8 +1,8 @@
 function [parseResult,p] = xmlread(filename,varargin)
 %XMLREAD  Parse an XML document and return a Document Object Model node.
-%   DOMNODE = XMLREAD(FILENAME) reads a URL or file name in the 
+%   DOMNODE = XMLREAD(FILENAME) reads a URL or file name in the
 %   string input argument FILENAME.  The function returns DOMNODE,
-%   a Document Object Model (DOM) node representing the parsed document.  
+%   a Document Object Model (DOM) node representing the parsed document.
 %   The node can be manipulated by using standard DOM functions.
 %
 %   Note: A properly parsed document will display to the screen as
@@ -66,7 +66,7 @@ function [parseResult,p] = xmlread(filename,varargin)
 %             will set the ErrorHandler before parsing
 %   [DOMNODE,P] = XMLREAD(FILENAME,...) will return a parser suitable for passing
 %             back to XMLREAD for future parses.
-%   
+%
 
 p = locGetParser(varargin);
 locSetEntityResolver(p,varargin);
@@ -84,7 +84,7 @@ if ischar(filename)
         % http: doesn't work with java.io.File.
         % Xerces accepts strings which works for http://.
         fileObj = org.xml.sax.InputSource(filename);
-    end   
+    end
 elseif isa(filename,'java.io.File')
     % Xerces is happier when UNC filepaths are sent as a
     % FileReader/InputSource than a File object
@@ -123,7 +123,7 @@ end
 if isempty(p)
     parserFactory = javaMethod('newInstance',...
         'javax.xml.parsers.DocumentBuilderFactory');
-        
+    
     javaMethod('setValidating',parserFactory,locIsValidating(args));
     %javaMethod('setIgnoringElementContentWhitespace',parserFactory,1);
     %ignorable whitespace requires a validating parser and a content model
