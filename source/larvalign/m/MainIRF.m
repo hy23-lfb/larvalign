@@ -385,7 +385,9 @@ try
         end
     end
     %}
+    status2 = 0; status3 = 0;
     display(sprintf(sep(msg))), fprintf(LogFileID,[sep(msg) '\n']);
+    fprintf("%d, %d, %d\n", status1, status2, status3);
     if ( status1~=0 || status2~=0 || status3~=0 ), return; end
     
     
@@ -463,7 +465,7 @@ try
         display(sprintf(msg)), fprintf(LogFileID,[msg '\n']);
     end
     
-    
+    fprintf("Entering\n");
     %% Registration Method/Approach
     if doLSM, OutImgExt='mhd';
     else OutImgExt=OutputImgExt; end
@@ -471,6 +473,7 @@ try
         case 'SemiAutomatic'
             Subject2TemplateRegistration_Semi(rootpath, CPUGPU, scanID, OutImgExt, ChannelImgPFN, OutputDir, LandmarksTemplatePFN, LandmarksSubjectPFN, doStoreDeffield, LogFileID);
         case 'FullyAutomatic'
+            fprintf("Template Registration \n");
             Subject2TemplateRegistration(rootpath, CPUGPU, scanID, OutImgExt, ChannelImgPFN, OutputDir, doStoreDeffield, LogFileID);
         otherwise
     end
