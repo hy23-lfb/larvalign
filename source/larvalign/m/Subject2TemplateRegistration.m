@@ -29,7 +29,7 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='AtlasImgMedian.mhd';
+    atlasLabel='D5_PP.mhd';
     atlasMaskN='AtlasImgMedian_Mask.mhd';
     
     

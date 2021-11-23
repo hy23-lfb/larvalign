@@ -463,7 +463,7 @@ try
         display(sprintf(msg)), fprintf(LogFileID,[msg '\n']);
     end
     
-    %{
+    
     %% Registration Method/Approach
     if doLSM, OutImgExt='mhd';
     else OutImgExt=OutputImgExt; end
@@ -475,7 +475,7 @@ try
         otherwise
     end
     
-    
+    %{
     %% Convert mhd to tiff
     if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImgExt,'tif')
         
