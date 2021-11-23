@@ -238,6 +238,8 @@ try
                 ' run("MHD/MHA ...", "save=[' sep(NPDir) scanID  '.mhd]"); '];
             stringNT='';
             stringGE='';
+            fprintf("stringNP is %s\n", stringNP);
+            %{
             if ~isempty(LSMchannelNT)
                 nbLSMchannels=nbLSMchannels+1;
                 stringNT=[ ' selectWindow("C' LSMchannelNT '-' scanID '.' InputImgExt '"); '...
@@ -248,6 +250,7 @@ try
                 stringGE=[ ' selectWindow("C' LSMchannelGE '-' scanID '.' InputImgExt '"); '...
                     ' run("MHD/MHA ...", "save=[' sep(GEDir) scanID  '.mhd]"); '];
             end
+            %}
             
             if strcmp(InputImgExt,'lsm')
                 fijiOpen1=[' run("LSM...", "open=[' sep(LSM_PFN) ']");'];
@@ -283,6 +286,9 @@ try
     
     if doLSM
         ChannelImgPFN.NP = [NPDir scanID '.mhd'];
+        ChannelImgPFN.NT='';
+        ChannelImgPFN.GE='';
+        %{
         if ~isempty(LSMchannelNT)
             ChannelImgPFN.NT = [NTDir scanID '.mhd'];
         else
@@ -293,6 +299,7 @@ try
         else
             ChannelImgPFN.GE='';
         end
+        %}
     else
         ChannelImgPFN.NP = NPchannelImgPFN;
         ChannelImgPFN.NT = NTchannelImgPFN;
@@ -360,6 +367,7 @@ try
     else
         msg=[msg sprintf([sep(ChannelImgPFN.NP) ':\n' cmdout1(10:end-1) ])];
     end
+    %{
     if ~isempty(ChannelImgPFN.NT),
         [status2,cmdout2] = system([ c3d  '"' ChannelImgPFN.NT '" -info ']);
         if status2~=0,
@@ -376,9 +384,9 @@ try
             msg=[msg sprintf([sep(ChannelImgPFN.GE) ':\n' cmdout3(10:end-1) ])];
         end
     end
+    %}
     display(sprintf(sep(msg))), fprintf(LogFileID,[sep(msg) '\n']);
     if ( status1~=0 || status2~=0 || status3~=0 ), return; end
-    
     
     
     
@@ -455,7 +463,7 @@ try
         display(sprintf(msg)), fprintf(LogFileID,[msg '\n']);
     end
     
-    
+    %{
     %% Registration Method/Approach
     if doLSM, OutImgExt='mhd';
     else OutImgExt=OutputImgExt; end
@@ -518,7 +526,7 @@ try
     fclose('all');
     msg='0';
     
-    
+    %}
     
     %%
     
