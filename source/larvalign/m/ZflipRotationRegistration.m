@@ -12,7 +12,7 @@ try
     % reference images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
     atlasLabel='D5_PP.mhd';
-    templateImg2FN='AtlasImgMedian25.mhd';
+    templateImg2FN='D5_PP.mhd';
     atlasSDTN='AtlasImgMedian_Mask_sdt.mhd';
     
     
@@ -76,6 +76,7 @@ try
     % Compute SDT for feature-based registration
     IM_SDT(rootpath, IM_PFN, PreRegDir, LogFileID);
     
+    %{
     % SDT registration for rotation recovering
     IF = ['"' atlasNPDir atlasSDTN '"'];
     IM = ['"' PreRegDir '\Mask_sdt.mhd"'];
@@ -189,7 +190,7 @@ try
         logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s   probably failed.', scanID)];
         display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     end
-    
+    %}
     
     
 catch ME;
