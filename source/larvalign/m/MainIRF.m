@@ -463,7 +463,6 @@ try
         display(sprintf(msg)), fprintf(LogFileID,[msg '\n']);
     end
     
-    fprintf("Entering\n");
     %% Registration Method/Approach
     if doLSM, OutImgExt='mhd';
     else OutImgExt=OutputImgExt; end
