@@ -238,7 +238,6 @@ try
                 ' run("MHD/MHA ...", "save=[' sep(NPDir) scanID  '.mhd]"); '];
             stringNT='';
             stringGE='';
-            fprintf("stringNP is %s\n", stringNP);
             %{
             if ~isempty(LSMchannelNT)
                 nbLSMchannels=nbLSMchannels+1;
@@ -387,7 +386,6 @@ try
     %}
     status2 = 0; status3 = 0;
     display(sprintf(sep(msg))), fprintf(LogFileID,[sep(msg) '\n']);
-    fprintf("%d, %d, %d\n", status1, status2, status3);
     if ( status1~=0 || status2~=0 || status3~=0 ), return; end
     
     
@@ -473,7 +471,6 @@ try
         case 'SemiAutomatic'
             Subject2TemplateRegistration_Semi(rootpath, CPUGPU, scanID, OutImgExt, ChannelImgPFN, OutputDir, LandmarksTemplatePFN, LandmarksSubjectPFN, doStoreDeffield, LogFileID);
         case 'FullyAutomatic'
-            fprintf("Template Registration \n");
             Subject2TemplateRegistration(rootpath, CPUGPU, scanID, OutImgExt, ChannelImgPFN, OutputDir, doStoreDeffield, LogFileID);
         otherwise
     end
@@ -492,7 +489,7 @@ try
         c3d = ['"' exeDir 'c3d.exe" '];
         
         c3d_cmd=[c3d '"' inDir_c3d scanID '.mhd" -type ushort -o "' outDir_c3d scanID '.tif"'];
-        fprintf("C3d_cmd is %s\n", c3d_cmd);
+
         [status, cmd] = system(c3d_cmd); 
         if (status ~= 0)
             fprintf("Mhd to Tif failed\n");

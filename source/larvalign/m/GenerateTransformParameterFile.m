@@ -36,7 +36,6 @@ try
             PreRegCompPFN = [parameterDir 'PreReg_CompSDT_OpenCL.txt'];
     end
     elxExeShell= [elxExe ' -f ' '"' IF '"' ' -m ' '"' IM_PFN '"' ' '   ' -out ' '"' PreRegDir '"' ' -p ' '"' PreRegCompPFN '"'  ' -priority ' exlPriority];
-    fprintf("elxExeShell of Gen TxPar is %s\n", elxExeShell);
     [status,cmdout] = system( elxExeShell);
     assert( status==0 )
     IMCenter_PFN = [PreRegDir '\result.0.mhd'];
@@ -61,9 +60,7 @@ try
     try
         [status,cmdout] = system([ c3d '"' IMCenter_PFN '"' ' -thresh 30 65535 1 0 -centroid']);
         temp = [ c3d '"' IMCenter_PFN '"' ' -thresh 30 65535 1 0 -centroid'];
-        fprintf("Centroid of Gen TxPar is %s\n", temp);
         centroidVox=cell2mat(textscan(cmdout,'CENTROID_VOX [%u, %u, %u]'));
-        fprintf("cmdout of Gen TxPar is %s\n", cmdout);
         if (header.Dimensions(2)-centroidVox(2)) < (header.Dimensions(2)/2)
             doRotZ=true;
             template{idxT,1} = ['(TransformParameters 0 3.14159 3.14159 0 0 0 )'];
@@ -77,7 +74,6 @@ try
     imgcenter=round( (header.Offset+(header.Dimensions .* header.PixelDimensions)) ./ 2);
     idx=find(~cellfun(@isempty, strfind(template,'CenterOfRotationPoint')));
     template{idx,1} = ['(CenterOfRotationPoint ' num2str(imgcenter) ')'];
-    fprintf("Image Center of Gen TxPar is %s\n", num2str(imgcenter));
     
     % write to file
     fileID = fopen( [PreRegDir '\TransformParameters_-Z.txt'],'w');
