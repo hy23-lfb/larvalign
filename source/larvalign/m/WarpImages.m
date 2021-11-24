@@ -17,6 +17,12 @@ try
     srcNTPFN = ChannelImgPFN.WNT;
     srcGEPFN = ChannelImgPFN.WGE;
     
+    fprintf("Warp images NP is %s\n", ChannelImgPFN.NP);
+    fprintf("Warp images NT is %s\n", ChannelImgPFN.NT);
+    fprintf("Warp images GE is %s\n", ChannelImgPFN.GE);
+    fprintf("Warp images WNP is %s\n", ChannelImgPFN.WNP);
+    fprintf("Warp images WNT is %s\n", ChannelImgPFN.WNT);
+    fprintf("Warp images WGE is %s\n", ChannelImgPFN.WGE);
     % output registered scans
     registeredScansPN = [outputDir 'RegisteredScans\' ];
     outputNPPN = [registeredScansPN 'NP\'];mkdir(outputNPPN) % NP -- Neuropil
@@ -27,7 +33,7 @@ try
     tic
     logstr = [datestr(datetime) sprintf(' -- Warping of channels...')];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
-    operation=['  -interpolation cubic -warp -clip 0 255 -type uchar -compress -o  '];
+    operation=['  -interpolation cubic -warp -clip 0 65535 -type ushort -compress -o  '];
     if ~isempty(srcNTPFN)
         warpNT = [' -push defX -push defY -push defZ ' '"' srcNTPFN '"'  operation  '"' outputNTPN scanID '.' ext '"'];
     else
@@ -40,6 +46,9 @@ try
     end
     [status,cmdout] = system( [ c3d '-mcs ' '"' deffieldPFN '"' ' -popas defZ -popas defY -popas defX '...
         ' -push defX -push defY -push defZ ' '"' srcNPPFN '"' operation '"' outputNPPN scanID '.' ext '"' ' -clear ' warpNT  ' -clear ' warpGE] );
+    temp = [ c3d '-mcs ' '"' deffieldPFN '"' ' -popas defZ -popas defY -popas defX '...
+        ' -push defX -push defY -push defZ ' '"' srcNPPFN '"' operation '"' outputNPPN scanID '.' ext '"' ' -clear ' warpNT  ' -clear ' warpGE];
+    fprintf("WarpImages is %s\n", temp);
     assert(status==0, [datestr(datetime) sprintf([' -- Warping of scan:  ' scanID '  failed.\n' cmdout])] )
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Warping took: %g s' ,t)];

@@ -13,7 +13,7 @@ try
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
     atlasLabel='D5_PP.mhd';
     templateImg2FN='D5_PP.mhd';
-    atlasSDTN='AtlasImgMedian_Mask_sdt.mhd';
+    atlasSDTN='D5_SDT.mhd';
     
     
     % exe
@@ -76,10 +76,9 @@ try
     % Compute SDT for feature-based registration
     IM_SDT(rootpath, IM_PFN, PreRegDir, LogFileID);
     
-    %{
     % SDT registration for rotation recovering
     IF = ['"' atlasNPDir atlasSDTN '"'];
-    IM = ['"' PreRegDir '\Mask_sdt.mhd"'];
+    IM = ['"' PreRegDir '\Mask_SDT.mhd"'];
     TransformFileZflip=['"' PreRegDir  '\TransformParameters_-Z.txt"'];
     TransformFileZ=['"' PreRegDir  '\TransformParameters_Z.txt"'];
     elxExeShell_Orig_SDT= [elxExe ' -f ' IF ' -m ' IM ' -out ' '"' Orig_SDT_PN '"' ' -p ' '"' PreRegSDTPFN '"' ' -t0 ' TransformFileZ  ' -p '  '"'  PreRegSDT2PFN  '"'  ' -priority ' exlPriority];
@@ -129,6 +128,7 @@ try
     
     if ~useLandmarks
         if (status2~=0 && status4~=0)  % run prereg w/o SDT
+            fprintf("Running without SDT\n");
             IF = ['"' atlasNPDir atlasLabel '"'];
             IM = ['"' IM_PFN '"'];
             TransformFileZflip=['"' PreRegDir  '\TransformParameters_-Z.txt"'];
@@ -190,7 +190,6 @@ try
         logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s   probably failed.', scanID)];
         display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     end
-    %}
     
     
 catch ME;

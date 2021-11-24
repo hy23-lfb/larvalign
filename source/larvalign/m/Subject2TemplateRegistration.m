@@ -52,11 +52,12 @@ try
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     GenerateTransformParameterFile(rootpath, CPUGPU, IM_NP_PFN, PreRegDir, LogFileID);
     TransformParamPreRegPFN = ZflipRotationRegistration(rootpath, CPUGPU, scanID, IM_NP_PFN, PreRegDir, '', '', LogFileID);
-    %{
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
+    mkdir(resultStage1Dir);
+    copyfile(TransformParamPreRegPFN, resultStage1Dir);
     %{
     %% Nonlinear registration (DIR)
     tic
@@ -80,7 +81,7 @@ try
     
     %% Apply transformation to all channels
     WarpImages( rootpath, resultStage1Dir, scanID, ChannelImgPFN, outputDir, ext, LogFileID)
-    
+    %{
     %% Registration finished
     tElapsed = toc(tStart);
     logstr = [datestr(datetime) sprintf(' -- Finished registration and warping of scan: %s in %g s.', scanID, tElapsed)];
@@ -94,7 +95,6 @@ try
         StoreDeffield( rootpath, resultStage1Dir, scanID, outputDir, ext, LogFileID)
     end
     %}
-    
 catch ME;
     try
         logstr = [datestr(datetime) sprintf(' -- Registration failed.')];
