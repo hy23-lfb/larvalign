@@ -81,20 +81,20 @@ try
     
     %% Apply transformation to all channels
     WarpImages( rootpath, resultStage1Dir, scanID, ChannelImgPFN, outputDir, ext, LogFileID)
-    %{
+    
     %% Registration finished
     tElapsed = toc(tStart);
     logstr = [datestr(datetime) sprintf(' -- Finished registration and warping of scan: %s in %g s.', scanID, tElapsed)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
     %% Registration Error Detection
-    RegistrationErrorDetection(rootpath, resultStage1Dir, scanID, ext, resultDir, outputDir, LogFileID)
+    %RegistrationErrorDetection(rootpath, resultStage1Dir, scanID, ext, resultDir, outputDir, LogFileID)
     
     %% Save deformation field
     if doStoreDeffield
         StoreDeffield( rootpath, resultStage1Dir, scanID, outputDir, ext, LogFileID)
     end
-    %}
+    
 catch ME;
     try
         logstr = [datestr(datetime) sprintf(' -- Registration failed.')];

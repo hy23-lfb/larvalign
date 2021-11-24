@@ -478,14 +478,26 @@ try
         otherwise
     end
     
-    %{
+    
     %% Convert mhd to tiff
     if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImgExt,'tif')
-        
+    
         logstr = [datestr(datetime) sprintf(' -- Composing and saving tiff multi-channel image.')];
         display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
-        dir_fiji = sep([OutputDir 'RegisteredScans\']);
-        outDir_fiji = [dir_fiji 'TIFF\\']; mkdir(outDir_fiji);
+        dir_c3d = sep([OutputDir 'RegisteredScans\']);
+        outDir_c3d = [dir_c3d 'TIFF\\'];
+        mkdir(outDir_c3d);
+        inDir_c3d = [dir_c3d 'NP\\'];
+        exeDir = [rootpath '\resources\exe\'];
+        c3d = ['"' exeDir 'c3d.exe" '];
+        
+        c3d_cmd=[c3d '"' inDir_c3d scanID '.mhd" -type ushort -o "' outDir_c3d scanID '.tif"'];
+        fprintf("C3d_cmd is %s\n", c3d_cmd);
+        [status, cmd] = system(c3d_cmd); 
+        if (status ~= 0)
+            fprintf("Mhd to Tif failed\n");
+        end
+        %{
         fijiOpen1=[' run("MHD/MHA...", "open=[' dir_fiji 'NP\\' scanID '.mhd]");'];
         tmp1=[' run("Save", "save=[' outDir_fiji 'np.tif]");'];
         fijiOpen2='';fijiOpen3=''; tmp2='';tmp3='';merge2='';merge3='';
@@ -514,7 +526,7 @@ try
         %[status, message, messageid] = rmdir(outNPDir);
         %[status, message, messageid] = rmdir(outNTDir);
         %[status, message, messageid] = rmdir(outGEDir);
-        
+    %}   
     end
     
     
