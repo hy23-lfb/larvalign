@@ -7,8 +7,10 @@ function h_createTemplateFiles(file)
 warning('off','MATLAB:MKDIR:DirectoryExists');
 warning('off','all');
 
-filepath = 'C:\Users\yogeshappa\Documents\Files_Hiwi\Datasets\Scaled_Files\mhd\';
-rootpath = 'C:\Users\yogeshappa\Documents\Repository\larvalign\source\larvalign';
+file = convertStringsToChars(file);
+
+filepath = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\25_Scaled_Tiff\mhd\';
+rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 
 exeDir = [rootpath '\resources\exe\'];
 c3d = ['"' exeDir 'c3d.exe" '];

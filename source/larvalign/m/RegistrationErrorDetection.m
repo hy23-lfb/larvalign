@@ -7,7 +7,7 @@ function RegistrationErrorDetection(rootpath, deffieldPN, scanID, ext, RegOutput
 %%
 try
     % dirs
-    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\72h_brain_2101_D5_NCad_CLAHE_PP.mhd'];
+    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\72h_brain_2101_D5_NCad_CLAHE_resized_PP.mhd'];
     REDPN = [ rootpath '\resources\RED\'];
     IR_PFN = [ outputDir 'RegisteredScans\NP\' scanID '.' ext ];
     deffieldPFN = [deffieldPN '\deformationField.mhd'];
