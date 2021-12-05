@@ -1,0 +1,15 @@
+ObjectType = Image
+NDims = 3
+BinaryData = True
+BinaryDataByteOrderMSB = False
+CompressedData = True
+CompressedDataSize = 60982879
+TransformMatrix = 1 0 0 0 1 0 0 0 1
+Offset = 0 0 0
+CenterOfRotation = 0 0 0
+AnatomicalOrientation = RAI
+ElementSpacing = 1 1 1
+ITK_InputFilterName = MetaImageIO
+DimSize = 919 435 335
+ElementType = MET_USHORT
+ElementDataFile = 72h_brain_2101_D5_NCad_CLAHE_PP.zraw
