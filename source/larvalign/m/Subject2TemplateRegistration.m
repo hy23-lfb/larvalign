@@ -56,9 +56,9 @@ try
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
-    %mkdir(resultStage1Dir);
-    %copyfile(TransformParamPreRegPFN, resultStage1Dir);
-    
+    mkdir(resultStage1Dir);
+    copyfile(TransformParamPreRegPFN, resultStage1Dir);
+    %{
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -73,7 +73,7 @@ try
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
-    
+    %}
     %% Computing composed dense deffield
     CombineTransformations( rootpath, resultStage1Dir, LogFileID)
     
@@ -86,7 +86,7 @@ try
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
     %% Registration Error Detection
-    %RegistrationErrorDetection(rootpath, resultStage1Dir, scanID, ext, resultDir, outputDir, LogFileID)
+    RegistrationErrorDetection(rootpath, resultStage1Dir, scanID, ext, resultDir, outputDir, LogFileID)
     
     %% Save deformation field
     if doStoreDeffield
