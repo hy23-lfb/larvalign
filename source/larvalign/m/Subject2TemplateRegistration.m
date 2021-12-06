@@ -29,8 +29,8 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='72h_brain_2101_D5_NCad_CLAHE_resized_PP.mhd';
-    atlasMaskN='72h_brain_2101_D5_NCad_CLAHE_resized_MASK.mhd';
+    atlasLabel='AtlasImage_Metamorphosis_PP.mhd';
+    atlasMaskN='AtlasImage_Metamorphosis_MASK.mhd';
     
     
     %% Registration of Subjects to Atlas
@@ -56,9 +56,9 @@ try
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
-    mkdir(resultStage1Dir);
-    copyfile(TransformParamPreRegPFN, resultStage1Dir);
-    %{
+    %mkdir(resultStage1Dir);
+    %copyfile(TransformParamPreRegPFN, resultStage1Dir);
+    
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -73,7 +73,7 @@ try
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
-    %}
+    
     %% Computing composed dense deffield
     CombineTransformations( rootpath, resultStage1Dir, LogFileID)
     
