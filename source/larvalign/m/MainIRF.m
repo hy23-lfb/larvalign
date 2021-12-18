@@ -234,10 +234,11 @@ try
             
             % LSMchannelNP
             nbLSMchannels=1;
-            stringNP=[ ' selectWindow("C' LSMchannelNP '-' scanID '.' InputImgExt '"); '...
+            stringNP=[ ' selectWindow("' scanID '.' InputImgExt '"); '...
                 ' run("MHD/MHA ...", "save=[' sep(NPDir) scanID  '.mhd]"); '];
             stringNT='';
             stringGE='';
+            %{
             if ~isempty(LSMchannelNT)
                 nbLSMchannels=nbLSMchannels+1;
                 stringNT=[ ' selectWindow("C' LSMchannelNT '-' scanID '.' InputImgExt '"); '...
@@ -248,6 +249,7 @@ try
                 stringGE=[ ' selectWindow("C' LSMchannelGE '-' scanID '.' InputImgExt '"); '...
                     ' run("MHD/MHA ...", "save=[' sep(GEDir) scanID  '.mhd]"); '];
             end
+            %}
             
             if strcmp(InputImgExt,'lsm')
                 fijiOpen1=[' run("LSM...", "open=[' sep(LSM_PFN) ']");'];
@@ -255,8 +257,8 @@ try
             if strcmp(InputImgExt,'tiff')||strcmp(InputImgExt,'tif')
                 fijiOpen1=[' run("ImageJ2...", "scijavaio=true");  open("' sep(LSM_PFN) '");'];
             end
-            fijiproc1=[' run("Make Composite", "display=Composite"); run("Split Channels"); '...
-                stringNP...
+            
+            fijiproc1=[stringNP...
                 stringNT...
                 stringGE...
                 ' run("Quit"); '];
@@ -283,6 +285,9 @@ try
     
     if doLSM
         ChannelImgPFN.NP = [NPDir scanID '.mhd'];
+        ChannelImgPFN.NT='';
+        ChannelImgPFN.GE='';
+        %{
         if ~isempty(LSMchannelNT)
             ChannelImgPFN.NT = [NTDir scanID '.mhd'];
         else
@@ -293,6 +298,7 @@ try
         else
             ChannelImgPFN.GE='';
         end
+        %}
     else
         ChannelImgPFN.NP = NPchannelImgPFN;
         ChannelImgPFN.NT = NTchannelImgPFN;
@@ -360,6 +366,7 @@ try
     else
         msg=[msg sprintf([sep(ChannelImgPFN.NP) ':\n' cmdout1(10:end-1) ])];
     end
+    %{
     if ~isempty(ChannelImgPFN.NT),
         [status2,cmdout2] = system([ c3d  '"' ChannelImgPFN.NT '" -info ']);
         if status2~=0,
@@ -376,9 +383,10 @@ try
             msg=[msg sprintf([sep(ChannelImgPFN.GE) ':\n' cmdout3(10:end-1) ])];
         end
     end
+    %}
+    status2 = 0; status3 = 0;
     display(sprintf(sep(msg))), fprintf(LogFileID,[sep(msg) '\n']);
     if ( status1~=0 || status2~=0 || status3~=0 ), return; end
-    
     
     
     
@@ -455,7 +463,6 @@ try
         display(sprintf(msg)), fprintf(LogFileID,[msg '\n']);
     end
     
-    
     %% Registration Method/Approach
     if doLSM, OutImgExt='mhd';
     else OutImgExt=OutputImgExt; end
@@ -470,11 +477,23 @@ try
     
     %% Convert mhd to tiff
     if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImgExt,'tif')
-        
+    
         logstr = [datestr(datetime) sprintf(' -- Composing and saving tiff multi-channel image.')];
         display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
-        dir_fiji = sep([OutputDir 'RegisteredScans\']);
-        outDir_fiji = [dir_fiji 'TIFF\\']; mkdir(outDir_fiji);
+        dir_c3d = sep([OutputDir 'RegisteredScans\']);
+        outDir_c3d = [dir_c3d 'TIFF\\'];
+        mkdir(outDir_c3d);
+        inDir_c3d = [dir_c3d 'NP\\'];
+        exeDir = [rootpath '\resources\exe\'];
+        c3d = ['"' exeDir 'c3d.exe" '];
+        
+        c3d_cmd=[c3d '"' inDir_c3d scanID '.mhd" -type ushort -o "' outDir_c3d scanID '.tif"'];
+
+        [status, cmd] = system(c3d_cmd); 
+        if (status ~= 0)
+            fprintf("Mhd to Tif failed\n");
+        end
+        %{
         fijiOpen1=[' run("MHD/MHA...", "open=[' dir_fiji 'NP\\' scanID '.mhd]");'];
         tmp1=[' run("Save", "save=[' outDir_fiji 'np.tif]");'];
         fijiOpen2='';fijiOpen3=''; tmp2='';tmp3='';merge2='';merge3='';
@@ -499,11 +518,11 @@ try
         outNPDir = [OutputDir 'RegisteredScans\NP\'];
         outNTDir = [OutputDir 'RegisteredScans\NT\'];
         outGEDir = [OutputDir 'RegisteredScans\GE\'];
-        delete( [outNPDir scanID '.*'], [outNTDir scanID '.*'], [outGEDir scanID '.*'] );
+        %delete( [outNPDir scanID '.*'], [outNTDir scanID '.*'], [outGEDir scanID '.*'] );
         %[status, message, messageid] = rmdir(outNPDir);
         %[status, message, messageid] = rmdir(outNTDir);
         %[status, message, messageid] = rmdir(outGEDir);
-        
+    %}   
     end
     
     
@@ -518,7 +537,7 @@ try
     fclose('all');
     msg='0';
     
-    
+    %}
     
     %%
     
