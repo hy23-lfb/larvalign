@@ -11,9 +11,9 @@ try
     
     % reference images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='AtlasImage_Metamorphosis_PP.mhd';
-    templateImg2FN='AtlasImage_Metamorphosis_PP.mhd';
-    atlasSDTN='AtlasImage_Metamorphosis_SDT.mhd';
+    atlasLabel='72h_brain_2101_D5_NCad_CLAHE_resized_PP.mhd';
+    templateImg2FN='72h_brain_2101_D5_NCad_CLAHE_resized_PP.mhd';
+    atlasSDTN='72h_brain_2101_D5_NCad_CLAHE_resized_SDT.mhd';
     
     
     % exe

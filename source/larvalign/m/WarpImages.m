@@ -10,7 +10,7 @@ try
     warning('off','MATLAB:MKDIR:DirectoryExists');
     exeDir = [rootpath '\resources\exe\'];
     c3d = ['"' exeDir 'c3d.exe" '];
-    deffieldPFN = [deffieldPN '\deformationField.mhd'];
+    deffieldPFN = [deffieldPN '\normdeformationField.mhd'];
     
     % input image channels
     srcNPPFN = ChannelImgPFN.WNP;
