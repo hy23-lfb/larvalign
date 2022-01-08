@@ -1,4 +1,4 @@
-function GenerateTransformParameterFile(rootpath, CPUGPU, IM_PFN, PreRegDir, LogFileID)
+function anal = GenerateTransformParameterFile(rootpath, CPUGPU, IM_PFN, PreRegDir, LogFileID)
 %%
 %% Generate TransformParameters files for pre-registration to map scans flipped in Z-dimension
 %%
@@ -13,9 +13,16 @@ exeDir = [rootpath '\resources\exe\'];
 elxExe = ['"' exeDir 'elastix.exe" '];
 c3d = ['"' exeDir 'c3d.exe" '];
 atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-atlasLabel='1_Gaussian_PP.mhd';
+atlasLabel='1_PP.mhd';
 templateImgPFN = [atlasNPDir atlasLabel];
 exlPriority='idle';
+
+%LogFileID = fopen([OutputDir 'LogFiles\' scanID '.log'],'w');
+%fprintf("rootpath is %s\n", rootpath);
+%fprintf("CPUGPU is %s\n", CPUGPU);
+%fprintf("IM_PFN is %s\n", IM_PFN);
+%fprintf("PreRegDir is %s\n", PreRegDir);
+%fprintf("LogFileID is %d\n", LogFileID);
 
 % parameter files
 parameterDir = [rootpath '\resources\elx_config\'];
@@ -51,6 +58,7 @@ InitialTransformParametersFileName = [PreRegDir '\TransformParameters.0.txt'];
 header=read_mhd_header( IMCenter_PFN );
 assert( ~isempty(header), 'Error reading image file header.')
 template=PreRegTemplateZflip{1,1};
+anal = template;
 idx=find(~cellfun(@isempty, strfind(template,'(InitialTransformParametersFileName')));
 template{idx,1} = ['(InitialTransformParametersFileName "' InitialTransformParametersFileName '")'];
 
@@ -79,16 +87,24 @@ fileID = fopen( [PreRegDir '\TransformParameters_-Z.txt'],'w');
 fprintf(fileID,'%s\n',template{:});
 fclose(fileID);  
 
+fileID = fopen( [PreRegDir '\TransformParameters_-Z1.txt'],'w');
+fprintf(fileID,'%s\n',template{:});
+fclose(fileID);  
+
 % TransformParameters_Z
 if doRotZ
     template{idxT,1} = ['(TransformParameters 0 0 3.14159 0 0 0 )']; 
 else
     template{idxT,1} = ['(TransformParameters 0 0 0 0 0 0 )']; 
 end
+anal = template;
 fileID = fopen( [PreRegDir '\TransformParameters_Z.txt'],'w');
 fprintf(fileID,'%s\n',template{:});
 fclose(fileID);  
 
+fileID = fopen( [PreRegDir '\TransformParameters_Z1.txt'],'w');
+fprintf(fileID,'%s\n',template{:});
+fclose(fileID);  
 catch ME; 
     try    
     logstr = [datestr(datetime) sprintf(' -- Pre-registration initialization failed.')];

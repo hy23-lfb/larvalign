@@ -29,8 +29,8 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='1_Gaussian_PP.mhd';
-    atlasMaskN='1_Gaussian_PP.mhd';
+    atlasLabel='1_PP.mhd';
+    atlasMaskN='1_PP.mhd';
     
     
     %% Registration of Subjects to Atlas
@@ -56,10 +56,10 @@ try
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
-    %mkdir(resultStage1Dir);
-    %copyfile(TransformParamPreRegPFN, resultStage1Dir);
+    mkdir(resultStage1Dir);
+    copyfile(TransformParamPreRegPFN, resultStage1Dir);
 
-    
+    %{
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -74,7 +74,7 @@ try
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
-    
+    %}
     
     
     %% Computing composed dense deffield

@@ -7,13 +7,14 @@ function RegistrationErrorDetection(rootpath, deffieldPN, scanID, ext, RegOutput
 %%
 try
     % dirs
-    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\1_Gaussian_PP.mhd'];
+    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\1_PP.mhd'];
     REDPN = [ rootpath '\resources\RED\'];
     IR_PFN = [ outputDir 'RegisteredScans\NP\' scanID '.' ext ];
     deffieldPFN = [deffieldPN '\deformationField.mhd'];
     % log
     tic
     logstr = [datestr(datetime) sprintf([' -- Performing automatic registration quality assessment of scan: ' scanID])];
+    fprintf("ENSURE YOU ARE USING THE RIGHT MASK FOR ERROR COMPUTATION\n");
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
     
@@ -33,7 +34,7 @@ try
     %% MMI
     % Entire scan
     matName='MaskedMetricEntireScan';
-    MaskPFN = [REDPN 'CNS\1_Gaussian_MASK.mhd'];
+    MaskPFN = [REDPN 'CNS\1_MASK.mhd'];
     GetSimilarityMetric(rootpath, IR_PFN, scanID, RegOutputDir, TemplateImagePFN, MaskPFN, matName )
     %{
     % VNC-terminal

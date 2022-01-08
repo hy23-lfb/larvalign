@@ -8,7 +8,7 @@ function msg = larvalignMain(varargin)
 % setdbprefs('errorhandling','report')
 
 OutputDir = 'D:\Harsha\Files_Hiwi\Output';
-LSM_PFN='D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\E12e_BP106\borderline\1_Gaussian.tif';
+LSM_PFN='D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\E12e_BP106\borderline\VoxelVolume\5.tif';
 varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};
 warning('off','all');
 %% Start GUI
