@@ -10,7 +10,7 @@ try
     warning('off','MATLAB:MKDIR:DirectoryExists');
     exeDir = [rootpath '\resources\exe\'];
     c3d = ['"' exeDir 'c3d.exe" '];
-    deffieldPFN = [deffieldPN '\normdeformationField.mhd'];
+    deffieldPFN = [deffieldPN '\deformationField.mhd'];
     
     % input image channels
     srcNPPFN = ChannelImgPFN.WNP;
@@ -38,6 +38,9 @@ try
     else
         warpGE = [];
     end
+    str = [ c3d '-mcs ' '"' deffieldPFN '"' ' -popas defZ -popas defY -popas defX '...
+        ' -push defX -push defY -push defZ ' '"' srcNPPFN '"' operation '"' outputNPPN scanID '.' ext '"' ' -clear ' warpNT  ' -clear ' warpGE];
+    fprintf("warp command is %s\n", str);
     [status,cmdout] = system( [ c3d '-mcs ' '"' deffieldPFN '"' ' -popas defZ -popas defY -popas defX '...
         ' -push defX -push defY -push defZ ' '"' srcNPPFN '"' operation '"' outputNPPN scanID '.' ext '"' ' -clear ' warpNT  ' -clear ' warpGE] );
     assert(status==0, [datestr(datetime) sprintf([' -- Warping of scan:  ' scanID '  failed.\n' cmdout])] )

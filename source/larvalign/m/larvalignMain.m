@@ -7,6 +7,10 @@
 function msg = larvalignMain(varargin)
 % setdbprefs('errorhandling','report')
 
+OutputDir = 'D:\Harsha\Files_Hiwi\Output';
+LSM_PFN='D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\25_Scaled_Tiff\72h_brain_2101_D6_NCad_CLAHE.tif';
+varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};
+
 warning('off','all');
 %% Start GUI
 if isempty(varargin)
