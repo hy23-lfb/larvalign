@@ -11,9 +11,9 @@ warning('off','MATLAB:MKDIR:DirectoryExists');
 
 % reference images
 atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-atlasLabel='1_PP.mhd';
-templateImg2FN='1_PP.mhd';
-atlasSDTN='1_SDT.mhd';
+atlasLabel='1_Gaussian_PP.mhd';
+templateImg2FN='1_Gaussian_PP.mhd';
+atlasSDTN='1_Gaussian_SDT.mhd';
 
 
 % exe

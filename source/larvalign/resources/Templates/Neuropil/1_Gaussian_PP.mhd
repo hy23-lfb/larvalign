@@ -1,0 +1,25 @@
+ObjectType = Image
+NDims = 3
+BinaryData = True
+BinaryDataByteOrderMSB = False
+CompressedData = True
+CompressedDataSize = 2660734
+TransformMatrix = 1 0 0 0 1 0 0 0 1
+Offset = 0 0 0
+CenterOfRotation = 0 0 0
+AnatomicalOrientation = RAI
+ElementSpacing = 1 1 1
+ITK_InputFilterName = MetaImageIO
+ImageDescription = ImageJ=1.50g
+Tag 50838 = 28
+images = 42
+loop = false
+max = 255.0
+min = 1.0
+mode = grayscale
+slices = 42
+spacing = 2.0
+unit = \u005Cu00B5m
+DimSize = 512 512 42
+ElementType = MET_UCHAR
+ElementDataFile = 1_Gaussian_PP.zraw

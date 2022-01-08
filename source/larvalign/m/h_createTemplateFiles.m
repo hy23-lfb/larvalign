@@ -9,7 +9,7 @@ warning('off','all');
 
 file = convertStringsToChars(file);
 
-filepath = 'D:\Harsha\Files_Hiwi\Datasets\Original_Files\mhd\';
+filepath = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\E12e_BP106\borderline\mhd\';
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 
 exeDir = [rootpath '\resources\exe\'];

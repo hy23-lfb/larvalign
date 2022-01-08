@@ -268,7 +268,7 @@ try
             fprintf(fileID,'%s\n',stringBuffer);
             fclose(fileID);
             
-            [status,cmdout] = system([FijiExe ' --headless -macro "' sep(tmpDir) scanID '_lsm2mhd.txt"']);
+            %[status,cmdout] = system([FijiExe ' --headless -macro "' sep(tmpDir) scanID '_lsm2mhd.txt"']);
             %[status,cmdout] = system([ 'del  /Q  "' tmpDir scanID '_lsm2mhd.txt"']);
             
         catch ME
@@ -487,7 +487,7 @@ try
         exeDir = [rootpath '\resources\exe\'];
         c3d = ['"' exeDir 'c3d.exe" '];
         
-        c3d_cmd=[c3d '"' inDir_c3d scanID '.mhd" -type ushort -o "' outDir_c3d scanID '.tif"'];
+        c3d_cmd=[c3d '"' inDir_c3d scanID '.mhd" -type uchar -o "' outDir_c3d scanID '.tif"'];
 
         [status, cmd] = system(c3d_cmd); 
         if (status ~= 0)
