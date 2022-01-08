@@ -9,11 +9,21 @@ try
 %% dirs & filenames & exe
 warning('off','MATLAB:MKDIR:DirectoryExists'); 
 
+fprintf("rootpath is %s\n", rootpath);
+fprintf("CPUGPU is %s\n", CPUGPU);
+fprintf("scanID is %s\n", scanID);
+fprintf("IM_PFN is %s\n", IM_PFN);
+fprintf("PreRegDir is %s\n", PreRegDir);
+fprintf("LM_TemplatePFN is %s\n", LM_TemplatePFN);
+fprintf("LM_SubjectPFN is %s\n", LM_SubjectPFN);
+fprintf("LogFileID is %d\n", LogFileID);
+
+
 % reference images
 atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-atlasLabel='AtlasImgMedian.mhd';
-templateImg2FN='AtlasImgMedian25.mhd';
-atlasSDTN='AtlasImgMedian_Mask_sdt.mhd';
+atlasLabel='1_PP.mhd';
+templateImg2FN='1_PP.mhd';
+atlasSDTN='1_SDT.mhd';
 
 
 % exe

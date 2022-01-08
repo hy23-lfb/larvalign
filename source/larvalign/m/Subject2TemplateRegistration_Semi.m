@@ -30,8 +30,8 @@ transformLabel0   = 'TransformParameters.0.txt';
 
 % Images
 atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-atlasLabel='AtlasImgMedian.mhd';
-atlasMaskN='AtlasImgMedian_Mask.mhd';
+atlasLabel='1_PP.mhd';
+atlasMaskN='1_MASK.mhd';
 
 % Landmark point correspondences 
 fPoints = [' -fp ' '"' LandmarksTemplatePFN '"'];
