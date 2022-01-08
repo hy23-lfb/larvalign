@@ -7,7 +7,7 @@ function RegistrationErrorDetection(rootpath, deffieldPN, scanID, ext, RegOutput
 %%
 try
     % dirs
-    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\1_PP.mhd'];
+    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\AtlasImgMedian.mhd'];
     REDPN = [ rootpath '\resources\RED\'];
     IR_PFN = [ outputDir 'RegisteredScans\NP\' scanID '.' ext ];
     deffieldPFN = [deffieldPN '\deformationField.mhd'];
@@ -34,7 +34,7 @@ try
     %% MMI
     % Entire scan
     matName='MaskedMetricEntireScan';
-    MaskPFN = [REDPN 'CNS\1_MASK.mhd'];
+    MaskPFN = [REDPN 'CNS\AtlasImgMedian_Mask.mhd'];
     GetSimilarityMetric(rootpath, IR_PFN, scanID, RegOutputDir, TemplateImagePFN, MaskPFN, matName )
     %{
     % VNC-terminal

@@ -13,7 +13,7 @@ exeDir = [rootpath '\resources\exe\'];
 elxExe = ['"' exeDir 'elastix.exe" '];
 c3d = ['"' exeDir 'c3d.exe" '];
 atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-atlasLabel='1_PP.mhd';
+atlasLabel='AtlasImgMedian.mhd';
 templateImgPFN = [atlasNPDir atlasLabel];
 exlPriority='idle';
 

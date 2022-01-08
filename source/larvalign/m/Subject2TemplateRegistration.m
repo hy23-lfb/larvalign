@@ -29,8 +29,8 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='1_PP.mhd';
-    atlasMaskN='1_PP.mhd';
+    atlasLabel='AtlasImgMedian.mhd';
+    atlasMaskN='AtlasImgMedian.mhd';
     
     
     %% Registration of Subjects to Atlas
@@ -50,7 +50,9 @@ try
     tic
     logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s' ,scanID)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    % KEY STAGE 1
     GenerateTransformParameterFile(rootpath, CPUGPU, IM_NP_PFN, PreRegDir, LogFileID);
+    % KEY STAGE 2
     TransformParamPreRegPFN = ZflipRotationRegistration(rootpath, CPUGPU, scanID, IM_NP_PFN, PreRegDir, '', '', LogFileID);
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
