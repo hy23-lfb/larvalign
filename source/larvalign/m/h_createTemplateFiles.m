@@ -1,4 +1,4 @@
-function h_createTemplateFiles(file)
+function h_createTemplateFiles(path_suffix, file)
 %%
 %% Create template files for registration
 %%
@@ -9,7 +9,7 @@ warning('off','all');
 
 file = convertStringsToChars(file);
 
-filepath = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\25_Scaled_Tiff\mhd\';
+filepath = [path_suffix 'mhd\']; %'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\25_Scaled_Tiff\mhd\';
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 
 exeDir = [rootpath '\resources\exe\'];
@@ -23,6 +23,7 @@ ppfilename = [templatepath file '_PP.mhd'];
 sdtfilename = [templatepath file '_SDT.mhd'];
 maskfilename = [templatepath file '_MASK.mhd'];
 
+fprintf("Template for %s\n", file);
 %% create pre-processed template.
 fprintf("Creating preprocessed template.\n");
 [status,cmdout] = system([ c3d '"' inputfile '"  -info-full ']);

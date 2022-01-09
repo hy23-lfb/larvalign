@@ -7,7 +7,7 @@ function RegistrationErrorDetection(rootpath, deffieldPN, scanID, ext, RegOutput
 %%
 try
     % dirs
-    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\72h_brain_2101_D5_NCad_CLAHE_resized_PP.mhd'];
+    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\D5_PP.mhd'];
     REDPN = [ rootpath '\resources\RED\'];
     IR_PFN = [ outputDir 'RegisteredScans\NP\' scanID '.' ext ];
     deffieldPFN = [deffieldPN '\deformationField.mhd'];
@@ -32,6 +32,7 @@ try
     %% Extract intensity and deformation field features
     %% MMI
     % Entire scan
+    fprintf("ENSURE RIGHT CNS-MASK FILE\n");
     matName='MaskedMetricEntireScan';
     MaskPFN = [REDPN 'CNS\CNS_Mask.mhd'];
     GetSimilarityMetric(rootpath, IR_PFN, scanID, RegOutputDir, TemplateImagePFN, MaskPFN, matName )

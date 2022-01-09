@@ -11,4 +11,4 @@ AnatomicalOrientation = RAI
 ElementSpacing = 1 1 1
 DimSize = 601 284 335
 ElementType = MET_SHORT
-ElementDataFile = 72h_brain_2101_D5_NCad_CLAHE_resized_MASK.zraw
+ElementDataFile = D5_MASK.zraw

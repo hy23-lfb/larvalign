@@ -29,8 +29,8 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='72h_brain_2101_D5_NCad_CLAHE_resized_PP.mhd';
-    atlasMaskN='72h_brain_2101_D5_NCad_CLAHE_resized_MASK.mhd';
+    atlasLabel='D5_PP.mhd';
+    atlasMaskN='D5_MASK.mhd';
     
     
     %% Registration of Subjects to Atlas
