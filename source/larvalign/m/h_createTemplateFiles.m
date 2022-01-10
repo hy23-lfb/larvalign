@@ -25,7 +25,7 @@ maskfilename = [templatepath file '_MASK.mhd'];
 
 fprintf("Template for %s\n", file);
 %% create pre-processed template.
-fprintf("Creating preprocessed template.\n");
+fprintf("\t Creating preprocessed template: \t");
 [status,cmdout] = system([ c3d '"' inputfile '"  -info-full ']);
 Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
 lowclip=num2str(ceil(cell2mat(textscan(Ctmp{1,1}{7,1},'%f'))));
@@ -33,7 +33,7 @@ lowclip=num2str(ceil(cell2mat(textscan(Ctmp{1,1}{7,1},'%f'))));
 fprintf("Finished creating preprocessed template.\n");
 
 %% create sdt template.
-fprintf("Creating sdt template.\n");
+fprintf("\t Creating sdt template: \t");
 [status,cmdout] = system([ c3d '"' ppfilename '"' ' -info-full ']);
 Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
 meanIntensity = cell2mat(textscan(Ctmp{1,1}{7,1},'%f')); % estimation of background intensity
@@ -44,7 +44,7 @@ lowclip=num2str(ceil(meanIntensity)+5);
 fprintf("Finished creating sdt template.\n");
 
 %% create mask template.
-fprintf("Creating mask template.\n");
+fprintf("\t Creating mask template: \t");
 [status,cmdout] = system([ c3d '"' ppfilename '"' ' -info-full ']);
 Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
 meanIntensity = cell2mat(textscan(Ctmp{1,1}{7,1},'%f')); % estimation of background intensity

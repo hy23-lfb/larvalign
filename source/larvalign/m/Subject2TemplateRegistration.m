@@ -56,9 +56,9 @@ try
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
     
-    %mkdir(resultStage1Dir);
-    %copyfile(TransformParamPreRegPFN, resultStage1Dir);
-    
+    mkdir(resultStage1Dir);
+    copyfile(TransformParamPreRegPFN, resultStage1Dir);
+    %{
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -76,7 +76,7 @@ try
     
     %% Computing composed dense deffield
     CombineTransformations( rootpath, resultStage1Dir, LogFileID)
-    
+    %}
     %% Apply transformation to all channels
     WarpImages( rootpath, resultStage1Dir, scanID, ChannelImgPFN, outputDir, ext, LogFileID)
     
