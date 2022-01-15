@@ -4,7 +4,7 @@ function h_avgDeformationField(path_suffix)
 %%
 %% Author: Harsha Yogeshappa
 %%
-img_files = ["D3", "D5", "D6", "D3_Contrast", "D3_Trans", "D3_FlipH", "D3_Flip", "D3_Unsharp", "D5_Contrast", "D5_Trans", "D5_FlipH", "D5_Flip", "D5_Unsharp", "D6_Contrast", "D6_Trans", "D6_FlipH", "D6_Flip", "D6_Unsharp"];
+img_files = ["D3", "D5", "D6","D3_Flip", "D5_Flip","D6_Flip"];
 [r,c] = size(img_files);
 for j=1:c
     noOfDefFields = 2;

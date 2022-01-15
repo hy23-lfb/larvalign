@@ -103,6 +103,7 @@ try
         scanID = name;
     end
     LSM_PFN = strrep(p.Results.LSM_PFN ,'/','\');
+    fprintf("LSM_PFN is %s\n", LSM_PFN);
     if ~isempty(LSM_PFN)
         doLSM = true;
         [path,name,ext] = fileparts(LSM_PFN);
@@ -128,7 +129,10 @@ try
     LSMchannelNP = p.Results.LSMchannelNP;
     LSMchannelNT = p.Results.LSMchannelNT;
     LSMchannelGE = p.Results.LSMchannelGE;
-    if isempty(LSMchannelNP), doLSM=false; end
+    if isempty(LSMchannelNP)
+        doLSM=false;
+    end
+    
     Method = p.Results.Method;
     if ~strcmp(Method,'SemiAutomatic')
         LandmarksTemplatePFN=[];
@@ -266,8 +270,7 @@ try
             stringBuffer = [ fijiOpen1 fijiproc1 ];
             fileID = fopen([sep(tmpDir) scanID '_lsm2mhd.txt'],'w');
             fprintf(fileID,'%s\n',stringBuffer);
-            fclose(fileID);
-            
+            fclose(fileID);            
             [status,cmdout] = system([FijiExe ' --headless -macro "' sep(tmpDir) scanID '_lsm2mhd.txt"']);
             %[status,cmdout] = system([ 'del  /Q  "' tmpDir scanID '_lsm2mhd.txt"']);
             

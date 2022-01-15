@@ -58,7 +58,7 @@ try
     
     mkdir(resultStage1Dir);
     copyfile(TransformParamPreRegPFN, resultStage1Dir);
-    %{
+    
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -76,7 +76,7 @@ try
     
     %% Computing composed dense deffield
     CombineTransformations( rootpath, resultStage1Dir, LogFileID)
-    %}
+    
     %% Apply transformation to all channels
     WarpImages( rootpath, resultStage1Dir, scanID, ChannelImgPFN, outputDir, ext, LogFileID)
     

@@ -33,14 +33,14 @@ for i=1:cf-1
     end
     
     if(i==1)
-        moving_files = ["'D3'", "'D6'", "'D3_Trans'", "'D3_FlipH'", "'D3_Flip'", "'D3_Unsharp'", "'D3_Contrast'", "'D6_Trans'", "'D6_FlipH'", "'D6_Flip'", "'D6_Unsharp'", "'D6_Contrast'"];
-        moving_cp = ["D3", "D6", "D3_Trans", "D3_FlipH", "D3_Flip", "D3_Unsharp", "D3_Contrast", "D6_Trans", "D6_FlipH", "D6_Flip", "D6_Unsharp", "D6_Contrast"];
+        moving_files = ["'D3'", "'D6'", "'D3_Flip'","'D6_Flip'"];
+        moving_cp = ["D3", "D6","D3_Flip","D6_Flip"];
     elseif(i==2)
-        moving_files = ["'D3'", "'D5'", "'D3_Trans'", "'D3_FlipH'", "'D3_Flip'", "'D3_Unsharp'", "'D3_Contrast'", "'D5_Trans'", "'D5_FlipH'", "'D5_Flip'", "'D5_Unsharp'", "'D5_Contrast'"];
-        moving_cp = ["D3", "D5",  "D3_Trans", "D3_FlipH", "D3_Flip", "D3_Unsharp", "D3_Contrast", "D5_Trans", "D5_FlipH", "D5_Flip", "D5_Unsharp", "D5_Contrast"];
+        moving_files = ["'D3'", "'D5'","'D3_Flip'","'D5_Flip'"];
+        moving_cp = ["D3", "D5","D3_Flip","D5_Flip"];
     elseif(i==3)
-        moving_files = ["'D5'", "'D6'", "'D5_Trans'", "'D5_FlipH'", "'D5_Flip'", "'D5_Unsharp'", "'D5_Contrast'", "'D6_Trans'", "'D6_FlipH'", "'D6_Flip'", "'D6_Unsharp'", "'D6_Contrast'"];
-        moving_cp = ["D5", "D6",  "D5_Trans", "D5_FlipH", "D5_Flip", "D5_Unsharp", "D5_Contrast", "D6_Trans", "D6_FlipH", "D6_Flip", "D6_Unsharp", "D6_Contrast"];
+        moving_files = ["'D5'", "'D6'","'D5_Flip'", "'D6_Flip'"];
+        moving_cp = ["D5", "D6","D5_Flip", "D6_Flip"];
     else
         fprintf("Unreachable code.\n");
     end

@@ -4,41 +4,22 @@ function h_registerToTargetSpace()
 %%
 %% Author: Harsha Yogeshappa
 %%
-img_files = ["'D3'", "'D5'", "'D6'", "'D3_Contrast'", "'D3_Trans'", "'D3_FlipH'", "'D3_Flip'", "'D3_Unsharp'", "'D5_Contrast'", "'D5_Trans'", "'D5_FlipH'", "'D5_Flip'", "'D5_Unsharp'", "'D6_Contrast'", "'D6_Trans'", "'D6_FlipH'", "'D6_Flip'", "'D6_Unsharp"];
-i_files = ["D3", "D5", "D6", "D3_Contrast", "D3_Trans", "D3_FlipH", "D3_Flip", "D3_Unsharp", "D5_Contrast", "D5_Trans", "D5_FlipH", "D5_Flip", "D5_Unsharp", "D6_Contrast", "D6_Trans", "D6_FlipH", "D6_Flip", "D6_Unsharp"];
+img_files = ["'D3'", "'D5'", "'D6'", "'D3_Flip'", "'D5_Flip'", "'D6_Flip'"];
+i_files = ["D3", "D5", "D6", "D3_Flip", "D5_Flip", "D6_Flip"];
 
-[rm ,cm] = size(img_files);
+[rm ,cm] = size(i_files);
 % Update the moving file in larvalignMain.m
-for j=1:cm % for a given template register all possible moving images.
-    fid = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\larvalignMain.m");
-    C=textscan(fid,'%s','delimiter','\n');
-    fclose(fid);
-    template = C{1,1};
-    mv = convertStringsToChars(img_files(j));
-    idxT=find(~cellfun(@isempty, strfind(template,'fm =')));
-    template{idxT,1} = ['fm = ' mv ';'];
-    fid = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\larvalignMain.m", 'w');
-    fprintf(fid,'%s\n',template{:});
-    fclose(fid);
+for j=1:cm    
+    rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
+    imFile = convertStringsToChars(i_files(j));
+    scanID = imFile;
+    tmpDir = 'D:\Harsha\Files_Hiwi\Output\tmp';
+    ChannelImgPFN.WNP = [tmpDir '\' imFile '\NP\' imFile '.mhd'];
+    %fprintf("ChannelImgPFN.NP is %s\n", ChannelImgPFN.NP);
+    ChannelImgPFN.WNT = '';
+    ChannelImgPFN.WGE = '';
+    ext = 'mhd';
+    LogFileID = fopen("D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\metamorphosis\tmp\LogFile.txt");
     
-    fid = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\WarpImages.m");
-    C=textscan(fid,'%s','delimiter','\n');
-    fclose(fid);
-    template = C{1,1};
-    idxT=find(~cellfun(@isempty, strfind(template,'imFile =')));
-    template{idxT,1} = ['imFile = ' mv ';'];
-    fid = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\WarpImages.m", 'w');
-    fprintf(fid,'%s\n',template{:});
-    fclose(fid);
-    
-    fprintf("Running larvalign for %s\n", mv);
-    run larvalignMain.m
-    
-    dst_suffix = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\metamorphosis\deformationFields\';
-    i_mv = convertStringsToChars(i_files(j));
-    dst_dir = [dst_suffix i_mv];
-    dst_dir = convertStringsToChars(dst_dir);
-    out_suffix = 'D:\Harsha\Files_Hiwi\Output\RegisteredScans\TIFF\';
-    out_file = [out_suffix i_mv '.tif'];
-    copyfile(out_file, dst_dir);
+    h_WarpImages(rootpath, imFile, scanID, ChannelImgPFN, ext, LogFileID);
 end

@@ -9,7 +9,7 @@ function msg = larvalignMain(varargin)
 
 OutputDir = 'D:\Harsha\Files_Hiwi\Output';
 path_sfx = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\metamorphosis\';
-fm = 'D5_Unsharp;
+fm = 'D6_Flip';
 LSM_PFN=[path_sfx fm '.tif'];
 varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};
 
