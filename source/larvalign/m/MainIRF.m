@@ -113,7 +113,7 @@ try
         doLSM = false;
     end
     if strcmp(p.Results.Help,'info')
-        display(sprintf(infoUsage))
+        %display((sprintf(infoUsage))
         return
     end
     
@@ -157,8 +157,8 @@ try
         case 'nrrd'
         otherwise
             msg=sprintf(['The input image file extension: ' OutputImgExt ' is not supported.\n']);
-            display(sprintf(msg))
-            display(sprintf(msgRequired))
+            %display((sprintf(msg))
+            %display((sprintf(msgRequired))
             return;
     end
     
@@ -179,14 +179,14 @@ try
         otherwise
             msg=sprintf(['The output image file extension: ' OutputImgExt ' is not supported.\n'...
                 'Supported ouput image file formats: TIFF (tiff,tif), Analyze (hdr), GIPL (gipl,gipl.gz), MetaImage (mhd,mha), NIFTI (nii,nii.gz), Nrrd (nhdr,nrrd), VTK (vtk).\n']);
-            display(sprintf(msg))
-            display(sprintf(msgRequired))
+            %display((sprintf(msg))
+            %display((sprintf(msgRequired))
             return;
     end
     allRequiredSet = ~isempty(OutputDir) && ~isempty(OutputImgExt) && ( ~isempty(NPchannelImgPFN) || doLSM );
     
     if ( ~allRequiredSet )
-        display(sprintf('\nNot all mandatory name-value pair arguments have been defined correctly.\n'))
+        %display((sprintf('\nNot all mandatory name-value pair arguments have been defined correctly.\n'))
         return;
     end
     resultDir = [OutputDir  'tmp\\' scanID ];
@@ -219,7 +219,8 @@ try
         sprintf('Total RAM (MB): %s\n',RAM_total)...
         sprintf('Available RAM (MB): %s\n',RAM_available)...
         sprintf('GPU: %s\n', GPU_ID)];
-    display(sprintf(logstr)); fprintf(LogFileID,[logstr '\n']);
+    %display((sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     
     
     
@@ -234,7 +235,8 @@ try
     if doLSM
         try
             logstr = [datestr(datetime) sprintf(' -- Trying to convert LSM/TIFF image...')];
-            display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
+            %display(sprintf(logstr));
+            fprintf(LogFileID,[logstr '\n']);
             
             % LSMchannelNP
             nbLSMchannels=1;
@@ -276,7 +278,8 @@ try
             
         catch ME
             logstr = [datestr(datetime) sprintf(' -- Conversion of LSM/TIFF file failed.')];
-            display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
+            %display(sprintf(logstr));
+            fprintf(LogFileID,[logstr '\n']);
             error(logstr);
         end
         
@@ -284,7 +287,8 @@ try
     
     %% Check if input files and images exist
     logstr = [datestr(datetime) sprintf(' -- Valiate if input files exist...')];
-    display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
+    %display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     
     if doLSM
         ChannelImgPFN.NP = [NPDir scanID '.mhd'];
@@ -319,7 +323,8 @@ try
     if ~isempty(LandmarksTemplatePFN), if ~exist(LandmarksTemplatePFN,'file'), msgt=[sep(LandmarksTemplatePFN) '  does not exist.']; msg=[msg sprintf([msgt '\n'])]; end, end
     if ~isempty(msg)
         logstr = [datestr(datetime) sprintf(sep(msg))];
-        display(sprintf(sep(logstr))),  fprintf(LogFileID,[sep(logstr) '\n']);
+        %display(sprintf(sep(logstr)));
+        fprintf(LogFileID,[sep(logstr) '\n']);
         return;
     end
     if strcmp(Method,'SemiAutomatic')
@@ -329,7 +334,8 @@ try
     end
     if ~isempty(msg)
         logstr = [datestr(datetime) sprintf(sep(msg))];
-        display(sprintf(sep(logstr))),  fprintf(LogFileID,[sep(logstr) '\n']);
+        %display(sprintf(sep(logstr)));
+        fprintf(LogFileID,[sep(logstr) '\n']);
         return;
     end
     
@@ -337,7 +343,8 @@ try
     
     %% Set parameters
     logstr = [datestr(datetime) sprintf(' -- Set parameters:')];
-    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    %display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     
     if strcmp(OutputImgExt,'lsm'), OutputImgExt='tiff'; end
     
@@ -354,12 +361,13 @@ try
     stringbuffer = [ stringbuffer sprintf( ['LandmarksSubjectPFN: ' sep(LandmarksSubjectPFN) '\n'] ) ];
     stringbuffer = [ stringbuffer sprintf( ['LandmarksTemplatePFN: ' sep(LandmarksTemplatePFN) '\n'] ) ];
     fprintf(LogFileID, sep(stringbuffer) );
-    display( sprintf(sep(stringbuffer)) )
+    %display(( sprintf(sep(stringbuffer)) )
     
     
     %% Validate that input files and images can be read
     logstr = [datestr(datetime) sprintf(' -- Validate if input files can be read...')];
-    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    %display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     % Input images
     msg=[];
     status1=0;status2=0;status3=0;
@@ -388,7 +396,8 @@ try
     end
     %}
     status2 = 0; status3 = 0;
-    display(sprintf(sep(msg))), fprintf(LogFileID,[sep(msg) '\n']);
+    %display(sprintf(sep(msg)));
+    fprintf(LogFileID,[sep(msg) '\n']);
     if ( status1~=0 || status2~=0 || status3~=0 ), return; end
     
     
@@ -397,7 +406,8 @@ try
     if strcmp(Method,'SemiAutomatic')
         try
             logstr = [datestr(datetime) sprintf(' -- Converting landmark point files...')];
-            display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+            %display(sprintf(logstr));
+            fprintf(LogFileID,[logstr '\n']);
             [path,name,LMText] = fileparts(LandmarksTemplatePFN);
             [path,name,LMSext] = fileparts(LandmarksSubjectPFN);
             if strcmp(LMText,'.points') && strcmp(LMSext,'.points')
@@ -447,7 +457,8 @@ try
         catch ME
             display(ME)
             logstr = [datestr(datetime) sprintf(' -- Conversion failed.')];
-            display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
+            %display(sprintf(logstr));
+            fprintf(LogFileID,[logstr '\n']);
             error(logstr)
         end
     end
@@ -459,11 +470,13 @@ try
         fileID = fopen(LandmarksSubjectPFN); C = textscan(fileID, '%s','delimiter','\n'); fclose(fileID);
         CC=C{1,1};
         msg=['LandmarksSubjectPFN: ' sep(LandmarksSubjectPFN)  sprintf('\n')  sprintf('%s\n',CC{:}) ];
-        display(sprintf(msg)), fprintf(LogFileID,[msg '\n']);
+        %display(sprintf(msg));
+        fprintf(LogFileID,[msg '\n']);
         fileID = fopen(LandmarksTemplatePFN); C = textscan(fileID, '%s','delimiter','\n'); fclose(fileID);
         CC=C{1,1};
         msg=['LandmarksTemplatePFN: ' sep(LandmarksTemplatePFN)  sprintf('\n')  sprintf('%s\n',CC{:}) ];
-        display(sprintf(msg)), fprintf(LogFileID,[msg '\n']);
+        %display(sprintf(msg));
+        fprintf(LogFileID,[msg '\n']);
     end
     
     %% Registration Method/Approach
@@ -482,7 +495,8 @@ try
     if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImgExt,'tif')
     
         logstr = [datestr(datetime) sprintf(' -- Composing and saving tiff multi-channel image.')];
-        display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
+        %display(sprintf(logstr));
+        fprintf(LogFileID,[logstr '\n']);
         dir_c3d = sep([OutputDir 'RegisteredScans\']);
         outDir_c3d = [dir_c3d 'TIFF\\'];
         mkdir(outDir_c3d);
@@ -531,11 +545,13 @@ try
     
     %% Clean up
     logstr = [datestr(datetime) sprintf(' -- Cleaning up...')];
-    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    %display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     %[status, message, messageid] = rmdir(resultDir,'s');
     %[status, message, messageid] = rmdir(fileparts(resultDir));
     logstr = [datestr(datetime) sprintf(' -- Finished processing scan: %s.\n\n', scanID)];
-    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    %display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     fclose(LogFileID);
     fclose('all');
     msg='0';

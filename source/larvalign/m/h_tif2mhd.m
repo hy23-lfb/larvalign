@@ -7,13 +7,14 @@ function [status, cmdout] = h_tif2mhd(scount, ecount, path_suffix)
 warning('off','MATLAB:MKDIR:DirectoryExists');
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 FijiExe = ['"' rootpath '\resources\exe\Fiji\ImageJ-win64.exe" ' ];
-tmpDir = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\metamorphosis\tmp\';
+
+%update this.
+tmpDir = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\meta18\tmp\';
 mkdir(tmpDir);
-%path_suffix = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\metamorphosis\';
 
 for j=scount:ecount
     i = num2str(j);
-    file = append('D', i);
+    file = append('B', i);
     in_path = [path_suffix file '.tif'];
     out_path = [path_suffix 'mhd\' file '.mhd'];
     
@@ -30,6 +31,7 @@ for j=scount:ecount
     
     fprintf("Converting %s.tif to mhd\n", file);
     [status,cmdout] = system([FijiExe ' --headless -macro "' sep(tmpDir) '\tif2mhd.txt"']);
+    fprintf("status is %d\n", status);
 end
 end
 

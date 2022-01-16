@@ -4,10 +4,10 @@ function h_avgDeformationField(path_suffix)
 %%
 %% Author: Harsha Yogeshappa
 %%
-img_files = ["D3", "D5", "D6","D3_Flip", "D5_Flip","D6_Flip"];
+img_files = ["B3", "B4", "B5","B6"];
 [r,c] = size(img_files);
 for j=1:c
-    noOfDefFields = 2;
+    noOfDefFields = 3;
     multiplier = 1/noOfDefFields;
     imgname = convertStringsToChars(img_files(j));
     path = [path_suffix imgname '\' num2str(1) '\deformationField.mhd'];

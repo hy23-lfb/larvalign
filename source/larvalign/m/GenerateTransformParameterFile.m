@@ -13,7 +13,7 @@ try
     elxExe = ['"' exeDir 'elastix.exe" '];
     c3d = ['"' exeDir 'c3d.exe" '];
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='D3_PP.mhd';
+    atlasLabel='B3_PP.mhd';
     templateImgPFN = [atlasNPDir atlasLabel];
     exlPriority='idle';
     
@@ -24,7 +24,8 @@ try
     
     %% Logfile
     logstr = [datestr(datetime) sprintf(' -- Preparing initial transformation...')];
-    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    %display(((sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     
     
     %% Transform to template dimension by center of image
@@ -67,7 +68,8 @@ try
         end
     catch ME
         logstr = [datestr(datetime) sprintf(' -- Unexpected intensity distribution. Rotation analysis failed.')];
-        display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+        %display((sprintf(logstr));
+        fprintf(LogFileID,[logstr '\n']);
     end
     
     % calc center of rotation, i.e. image center

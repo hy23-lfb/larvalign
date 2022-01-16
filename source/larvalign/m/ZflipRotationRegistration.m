@@ -11,9 +11,9 @@ try
     
     % reference images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='D3_PP.mhd';
-    templateImg2FN='D3_PP.mhd';
-    atlasSDTN='D3_SDT.mhd';
+    atlasLabel='B3_PP.mhd';
+    templateImg2FN='B3_PP.mhd';
+    atlasSDTN='B3_SDT.mhd';
     
     
     % exe
@@ -56,7 +56,8 @@ try
             end
         otherwise
             logstr = [datestr(datetime) sprintf(' -- Invalid CPUGPU mode.')];
-            display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+            %display(sprintf(logstr));
+            fprintf(LogFileID,[logstr '\n']);
             error(logstr)
     end
     
@@ -64,7 +65,8 @@ try
     %% PreRegistration to find large rotations and flipping of scan
     logstr = [datestr(datetime) sprintf(' -- Feature-based large rotation registration...')];
     if useLandmarks, logstr = [datestr(datetime) sprintf(' -- Landmark-feature-based large rotation registration...')];end
-    display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+    %display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
     
     Orig_SDT_PN = [ PreRegDir '\Orig\SDT' ]; mkdir(Orig_SDT_PN);
     Zflip_SDT_PN = [ PreRegDir '\Zflip\SDT' ]; mkdir(Zflip_SDT_PN);
@@ -109,7 +111,8 @@ try
     % Intensity registration for refinement, based on SDT reg transformparameters
     logstr = [datestr(datetime) sprintf(' -- Linear intensity-based registration...')];
     if useLandmarks, logstr = [datestr(datetime) sprintf(' -- Linear landmark-intensity-based registration...')];end
-    fprintf(LogFileID,[logstr '\n']); display(sprintf(logstr))
+    fprintf(LogFileID,[logstr '\n']);
+    %display(sprintf(logstr))
     
     status2=1;status4=1;
     if (FinalMetricValue.origSDT <= FinalMetricValue.zflipSDT)
@@ -183,12 +186,14 @@ try
     
     if (FinalMetricValue.orig==0 && FinalMetricValue.zflip==0)
         logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s   failed.', scanID)];
-        display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+        %display(sprintf(logstr));
+        fprintf(LogFileID,[logstr '\n']);
         error(logstr)
     end
     if ( ~useLandmarks && min([FinalMetricValue.orig,FinalMetricValue.zflip])>-0.40 )
         logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s   probably failed.', scanID)];
-        display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
+        %display(sprintf(logstr));
+        fprintf(LogFileID,[logstr '\n']);
     end
     
     
