@@ -1,4 +1,4 @@
-function h_createTemplateFiles(file)
+function h_createTemplateFiles(path_suffix, file)
 %%
 %% Create template files for registration
 %%
@@ -9,7 +9,7 @@ warning('off','all');
 
 file = convertStringsToChars(file);
 
-filepath = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\E12e_BP106\borderline\VoxelVolume\no_outlier\mhd\';
+filepath = [path_suffix 'mhd\']; %'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\25_Scaled_Tiff\mhd\';
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 
 exeDir = [rootpath '\resources\exe\'];
@@ -23,33 +23,41 @@ ppfilename = [templatepath file '_PP.mhd'];
 sdtfilename = [templatepath file '_SDT.mhd'];
 maskfilename = [templatepath file '_MASK.mhd'];
 
+fprintf("Template for %s\n", file);
 %% create pre-processed template.
-fprintf("Creating preprocessed template.\n");
+fprintf("\t Creating preprocessed template: \t");
 [status,cmdout] = system([ c3d '"' inputfile '"  -info-full ']);
 Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
 lowclip=num2str(ceil(cell2mat(textscan(Ctmp{1,1}{7,1},'%f'))));
-[status,cmdout] = system([  c3d '"' inputfile '"  -clip ' lowclip ' 255  -replace ' lowclip ' 0  -type uchar -compress -o "' ppfilename '"']);
+[status,cmdout] = system([  c3d '"' inputfile '"  -clip ' lowclip ' 65535  -replace ' lowclip ' 0  -type ushort -compress -o "' ppfilename '"']);
 fprintf("Finished creating preprocessed template.\n");
 
 %% create sdt template.
-fprintf("Creating sdt template.\n");
+fprintf("\t Creating sdt template: \t");
 [status,cmdout] = system([ c3d '"' ppfilename '"' ' -info-full ']);
 Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
 meanIntensity = cell2mat(textscan(Ctmp{1,1}{7,1},'%f')); % estimation of background intensity
 lowclip=num2str(ceil(meanIntensity)+5);
 [status,cmdout] = system([ c3d '"' ppfilename '"'...
-    ' -clip ' lowclip ' 255  -replace ' lowclip ' 0 -binarize -erode 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -popas mask '...
+    ' -clip ' lowclip ' 65535  -replace ' lowclip ' 0 -binarize -erode 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -popas mask '...
     ' -push mask -sdt -type short -compress -o ' '"' sdtfilename '"' ]);
 fprintf("Finished creating sdt template.\n");
 
 %% create mask template.
-fprintf("Creating mask template.\n");
+fprintf("\t Creating mask template: \t");
 [status,cmdout] = system([ c3d '"' ppfilename '"' ' -info-full ']);
 Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
 meanIntensity = cell2mat(textscan(Ctmp{1,1}{7,1},'%f')); % estimation of background intensity
 lowclip=num2str(ceil(meanIntensity)+5);
 [status,cmdout] = system([ c3d '"' ppfilename '"'...
-    ' -clip ' lowclip ' 255  -replace ' lowclip ' 0 -binarize -erode 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -popas mask '...
+    ' -clip ' lowclip ' 65535  -replace ' lowclip ' 0 -binarize -erode 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -popas mask '...
     ' -push mask -type short -compress -o ' '"' maskfilename '"' ]);
 fprintf("Finished creating mask template.\n");
 end
+
+
+
+
+
+
+
