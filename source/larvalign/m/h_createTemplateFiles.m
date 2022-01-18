@@ -9,7 +9,7 @@ warning('off','all');
 
 file = convertStringsToChars(file);
 
-filepath = [path_suffix 'mhd\']; %'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\25_Scaled_Tiff\mhd\';
+filepath = [path_suffix 'mhd\'];
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 
 exeDir = [rootpath '\resources\exe\'];

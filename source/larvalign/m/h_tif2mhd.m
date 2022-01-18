@@ -1,4 +1,4 @@
-function [status, cmdout] = h_tif2mhd(scount, ecount, path_suffix)
+function [status, cmdout] = h_tif2mhd(scount, ecount, path_suffix, fname_prefix, fname_suffix)
 %%
 %% Generate mhd files out of tif files.
 %%
@@ -8,15 +8,17 @@ warning('off','MATLAB:MKDIR:DirectoryExists');
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 FijiExe = ['"' rootpath '\resources\exe\Fiji\ImageJ-win64.exe" ' ];
 
+mhdpath = [path_suffix 'mhd\'];
+mkdir(mhdpath);
 %update this.
-tmpDir = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\meta18\tmp\';
+tmpDir = [path_suffix 'tmp\'];
 mkdir(tmpDir);
 
 for j=scount:ecount
     i = num2str(j);
-    file = append('B', i);
+    file = append(fname_prefix, i, fname_suffix);
     in_path = [path_suffix file '.tif'];
-    out_path = [path_suffix 'mhd\' file '.mhd'];
+    out_path = [mhdpath file '.mhd'];
     
     fijiOpen=[' run("ImageJ2...", "scijavaio=true");  open("' sep(in_path) '"); '];
     window = [file '.tif'];

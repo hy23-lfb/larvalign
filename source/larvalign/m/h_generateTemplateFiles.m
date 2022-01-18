@@ -1,22 +1,22 @@
-function [status, cmdout] = h_generateTemplateFiles(scount, ecount, path_suffix)
+function [status, cmdout] = h_generateTemplateFiles(scount, ecount)
 %%
 %% Generate mhd files out of tif files.
 %%
 %% Author: Harsha Yogeshappa
 %%
 
-%path_suffix = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\metamorphosis\';
-
 warning('off','MATLAB:MKDIR:DirectoryExists');
 
+fname_prefix = 'B';
+fname_suffix = '_Flip';
+path_suffix = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\meta18\';
 % Create mhd files.
-[status, cmdout] = h_tif2mhd(scount, ecount, path_suffix);
-
+[status, cmdout] = h_tif2mhd(scount, ecount, path_suffix, fname_prefix, fname_suffix);
 
 % for all the created files, create template files.
 for j=scount:ecount
    i = num2str(j);
-   file=['B' i];
+   file=[fname_prefix i fname_suffix];
    h_createTemplateFiles(path_suffix, file);
 end
 
