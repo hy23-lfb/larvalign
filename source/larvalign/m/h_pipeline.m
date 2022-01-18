@@ -5,10 +5,22 @@
 %%
 function msg = h_pipeline()
 
+larvalign_path = "'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\meta18\'";
+larvalign_path = convertStringsToChars(larvalign_path);
+fid = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\larvalignMain.m");
+C=textscan(fid,'%s','delimiter','\n');
+fclose(fid);
+template = C{1,1};
+idxT=find(~cellfun(@isempty, strfind(template,'path_sfx =')));
+template{idxT,1} = ['path_sfx = ' larvalign_path ';'];
+fid = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\larvalignMain.m", 'w');
+fprintf(fid,'%s\n',template{:});
+fclose(fid);
+
 fixed_images = ["'B3'","'B4'","'B5'", "'B6'","'B4_Flip'","'B5_Flip'", "'B6_Flip'", "'B3_Flip'", "'B3'"];
 fixed_cp = ["B3","B4","B5", "B6","B4_Flip","B5_Flip", "B6_Flip", "B3_Flip", "B3"];
 [rf,cf]=size(fixed_images);
-for i=4:cf-1
+for i=1:cf-1
     sc = convertStringsToChars(fixed_images(i+1));
     ex = convertStringsToChars(fixed_images(i));
     
@@ -24,21 +36,15 @@ for i=4:cf-1
     fid = fopen("D:\Harsha\Files_Hiwi\Scripts\find_replace_Template_string_18h.sh", 'w');
     fprintf(fid,'%s\n',template{:});
     fclose(fid);
+    fprintf("\n\nexpunging %s\n", ex);
+    fprintf("sacntioning %s\n", sc);
     
     [status, cmdout] = system('D:\Harsha\Files_Hiwi\Scripts\find_replace_Template_string_18h.sh');
     if(status==0)
-        fprintf("\n find_replace_Template_string_18h.sh executed successfully.\n");
+        fprintf("template script executed successfully.\n");
     else
-        fprintf("\n find_replace_Template_string_18h.sh failed.\n");
+        fprintf("template script failed.\n");
     end
-    
-    % Debug msg for template.
-    fid_debug = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\GenerateTransformParameterFile.m");
-    C=textscan(fid_debug,'%s','delimiter','\n');
-    fclose(fid_debug);
-    template = C{1,1};
-    idxT=find(~cellfun(@isempty, strfind(template,'atlasLabel=')));
-    fprintf("The template image being used is %s\n", template{idxT,1});
     
     if(i==1) %B4
         moving_files = ["'B3'", "'B5'", "'B6'", "'B3_Flip'", "'B4_Flip'", "'B5_Flip'", "'B6_Flip'"];
@@ -82,6 +88,14 @@ for i=4:cf-1
         fprintf(fid,'%s\n',template{:});
         fclose(fid);
         
+        % Debug msg for template.
+        fid_debug = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\GenerateTransformParameterFile.m");
+        C=textscan(fid_debug,'%s','delimiter','\n');
+        fclose(fid_debug);
+        template = C{1,1};
+        idxT=find(~cellfun(@isempty, strfind(template,'atlasLabel=')));
+        fprintf("\n\nThe template image being used is %s\n", template{idxT,1});
+        
         % Debug msg for moving image.
         fid_debug = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\larvalignMain.m");
         C=textscan(fid_debug,'%s','delimiter','\n');
@@ -90,7 +104,7 @@ for i=4:cf-1
         idxT=find(~cellfun(@isempty, strfind(template,'fm =')));
         fprintf("The moving image being used is %s\n", template{idxT,1});
         
-        fprintf("\n\nRegistration between %s and %s\n\n", mv, sc);
+        fprintf("\nRegistration between %s and %s\n\n", mv, sc);
         % Run larvalignMain to perform registration.
         msg = larvalignMain();
         

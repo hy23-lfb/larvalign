@@ -103,7 +103,7 @@ try
         scanID = name;
     end
     LSM_PFN = strrep(p.Results.LSM_PFN ,'/','\');
-    fprintf("LSM_PFN is %s\n", LSM_PFN);
+    fprintf("LSM_PFN is %s\n\n", LSM_PFN);
     if ~isempty(LSM_PFN)
         doLSM = true;
         [path,name,ext] = fileparts(LSM_PFN);
