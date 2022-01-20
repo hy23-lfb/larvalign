@@ -4,7 +4,7 @@ function h_registerToTargetSpace()
 %%
 %% Author: Harsha Yogeshappa
 %%
-i_files = ["B3", "B4", "B5", "B6"];
+i_files = ["B3", "B4", "B5", "B6", "B3_Flip", "B4_Flip", "B5_Flip", "B6_Flip"];
 
 [rm ,cm] = size(i_files);
 % Update the moving file in larvalignMain.m

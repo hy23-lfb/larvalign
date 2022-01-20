@@ -14,14 +14,15 @@ try
     warning('off','MATLAB:MKDIR:DirectoryExists');
     exeDir = [rootpath '\resources\exe\'];
     c3d = ['"' exeDir 'c3d.exe" '];
-    deffieldPFN = [deffieldPN '\deformationField.mhd'];
-    fprintf("deffieldPFN is %s\n", deffieldPFN);
-    
+    deffieldPFN = [deffieldPN '\deformationField.mhd']; 
     
     % input image channels
     srcNPPFN = ChannelImgPFN.WNP;
     srcNTPFN = ChannelImgPFN.WNT;
     srcGEPFN = ChannelImgPFN.WGE;
+    
+    fprintf("deffieldPFN in warping is %s\n", deffieldPFN);
+    fprintf("srcNPPFN in warping is %s\n", srcNPPFN);
     
     % output registered scans
     registeredScansPN = [deffieldPN '\MeanDFile_RegisteredScans\' ];
