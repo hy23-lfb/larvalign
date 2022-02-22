@@ -15,7 +15,7 @@ df_dstPath_suffix = 'I:\metamorphosis\deformationFields\';
 % Get the image dimensions. Needed for initializing the deformation fields.
 % Dimensions of deformation fields are :
 % image_width x image_height x no_of_slices x 3
-b3_file = [srcFilePath '\B3.tif'];
+b3_file = [srcFilePath '\C3.tif'];
 tiff_info = imfinfo(b3_file);
 tstack = imread(b3_file,1);
 [c, r] = size(tstack);
@@ -23,9 +23,9 @@ z = size(tiff_info, 1);
 
 % Two separate arrays.
 % Used to update the name of the files in the program.
-movImages = ["'B3'", "'B4'", "'B5'", "'B6'", "'B3_Flip'","'B4_Flip'", "'B5_Flip'", "'B6_Flip'"];
+movImages = ["'C3'", "'C4'", "'C5'", "'C3_Flip'","'C4_Flip'", "'C5_Flip'"];
 % Used to create directories or read files from the existing directories.
-movImages_cp = ["B3", "B4", "B5", "B6", "B3_Flip", "B4_Flip", "B5_Flip", "B6_Flip"];
+movImages_cp = ["C3", "C4", "C5", "C3_Flip", "C4_Flip", "C5_Flip"]; 
 
 [~, c_movImages] = size(movImages);
 numOfPairWiseRegistrations = c_movImages - 1;

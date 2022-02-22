@@ -30,8 +30,8 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='B5_Flip_PP.mhd';
-    atlasMaskN='B5_Flip_MASK.mhd';
+    atlasLabel='C4_Flip_PP.mhd';
+    atlasMaskN='C4_Flip_MASK.mhd';
     
     
     %% Registration of Subjects to Atlas

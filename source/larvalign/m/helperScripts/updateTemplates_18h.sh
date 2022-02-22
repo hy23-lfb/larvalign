@@ -1,5 +1,5 @@
-sanction='B5_Flip'
-expunge='B4_Flip'
+sanction='C4_Flip'
+expunge='C3_Flip'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
@@ -17,4 +17,4 @@ echo -e "\nFinding MASK files ...\n"
 grep -rl $input_mask /d/Harsha/Repository/larvalign/source/ | xargs sed -i "s/${input_mask}/${output_mask}/g"
 
 rm /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/$expunge*
-cp  /i/Dataset/Standard_Brain/02.Standard_Brain/meta18_25_percent/meta18/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+cp  /i/Dataset/Standard_Brain/02.Standard_Brain/24h/meta24_25percent/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
