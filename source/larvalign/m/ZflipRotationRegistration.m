@@ -11,9 +11,9 @@ try
     
     % reference images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='B5_Flip_PP.mhd';
-    templateImg2FN='B5_Flip_PP.mhd';
-    atlasSDTN='B5_Flip_SDT.mhd';
+    atlasLabel='B6_Flip_PP.mhd';
+    templateImg2FN='B6_Flip_PP.mhd';
+    atlasSDTN='B6_Flip_SDT.mhd';
     
     
     % exe
@@ -115,7 +115,7 @@ try
     %display(sprintf(logstr))
     
     status2=1;status4=1;
-    if (FinalMetricValue.origSDT <= FinalMetricValue.zflipSDT)
+    if (1)
         [status2,cmdout] = system( elxExeShell_Orig_Intens );
     else
         [status4,cmdout] = system( elxExeShell_Zflip_Intens );

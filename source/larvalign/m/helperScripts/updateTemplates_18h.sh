@@ -1,5 +1,5 @@
-sanction='B5_Flip'
-expunge='B4_Flip'
+sanction='B6_Flip'
+expunge='B5_Flip'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
