@@ -1,14 +1,14 @@
 function h_computeMedianOfImages()
-b3_path = 'I:\metamorphosis\deformationFields\B3\B3_out.tif';
-b4_path = 'I:\metamorphosis\deformationFields\B4\B4_out.tif';
-b5_path = 'I:\metamorphosis\deformationFields\B5\B5_out.tif';
-b6_path = 'I:\metamorphosis\deformationFields\B6\B6_out.tif';
-b7_path = 'I:\metamorphosis\deformationFields\B6\B7_out.tif';
-b3_Flip_path = 'I:\metamorphosis\deformationFields\B3_Flip\B3_Flip_out.tif';
-b4_Flip_path = 'I:\metamorphosis\deformationFields\B4_Flip\B4_Flip_out.tif';
-b5_Flip_path = 'I:\metamorphosis\deformationFields\B5_Flip\B5_Flip_out.tif';
-b6_Flip_path = 'I:\metamorphosis\deformationFields\B6_Flip\B6_Flip_out.tif';
-b7_Flip_path = 'I:\metamorphosis\deformationFields\B6_Flip\B7_Flip_out.tif';
+b3_path = 'I:\metamorphosis\deformationFields\25p_18h\B3\B3.tif';
+b4_path = 'I:\metamorphosis\deformationFields\25p_18h\B4\B4.tif';
+b5_path = 'I:\metamorphosis\deformationFields\25p_18h\B5\B5.tif';
+b6_path = 'I:\metamorphosis\deformationFields\25p_18h\B6\B6.tif';
+b7_path = 'I:\metamorphosis\deformationFields\25p_18h\B7\B7.tif';
+b3_Flip_path = 'I:\metamorphosis\deformationFields\25p_18h\B3_Flip\B3_Flip.tif';
+b4_Flip_path = 'I:\metamorphosis\deformationFields\25p_18h\B4_Flip\B4_Flip.tif';
+b5_Flip_path = 'I:\metamorphosis\deformationFields\25p_18h\B5_Flip\B5_Flip.tif';
+b6_Flip_path = 'I:\metamorphosis\deformationFields\25p_18h\B6_Flip\B6_Flip.tif';
+b7_Flip_path = 'I:\metamorphosis\deformationFields\25p_18h\B7_Flip\B7_Flip.tif';
 
 tiff_info = imfinfo(b3_path);
 stack_size = size(tiff_info, 1);
@@ -34,5 +34,5 @@ for no_of_stack = 1:stack_size
 end
 output = uint16(output_stack);
 for ii = 1 : stack_size
-imwrite(output(:,:,ii) , '18h_new_stack.tif' , 'WriteMode' , 'append') ;
+imwrite(output(:,:,ii) , 'I:\metamorphosis\deformationFields\25p_18h\18h_new_stack.tif' , 'WriteMode' , 'append') ;
 end
