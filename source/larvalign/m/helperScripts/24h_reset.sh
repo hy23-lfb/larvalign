@@ -1,5 +1,5 @@
 sanction='C5_Flip'
-expunge='B5_Flip'
+expunge='C4_Flip'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
