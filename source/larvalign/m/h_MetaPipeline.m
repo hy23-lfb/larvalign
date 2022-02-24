@@ -10,6 +10,7 @@ warning('off','MATLAB:MKDIR:DirectoryExists');
 df_srcPath_prefix = 'D:\Harsha\Files_Hiwi\Output\tmp\';
 df_srcPath_suffix = '\DIR\deformationField.mhd';
 df_dstPath_suffix = 'I:\metamorphosis\deformationFields\';
+avg_df_path = 'D:\Harsha\Files_Hiwi\Output\';
 
 %% Global Inits
 % Get the image dimensions. Needed for initializing the deformation fields.
@@ -25,7 +26,7 @@ z = size(tiff_info, 1);
 % Used to update the name of the files in the program.
 movImages = ["'C3'", "'C4'", "'C5'", "'C3_Flip'","'C4_Flip'", "'C5_Flip'"];
 % Used to create directories or read files from the existing directories.
-movImages_cp = ["C3", "C4", "C5", "C3_Flip", "C4_Flip", "C5_Flip"]; 
+movImages_cp = ["C3", "C4", "C5", "C3_Flip", "C4_Flip", "C5_Flip"];
 
 [~, c_movImages] = size(movImages);
 numOfPairWiseRegistrations = c_movImages - 1;
@@ -73,8 +74,10 @@ for itr_movImg = 1 : c_movImages
     mv_cp = movImages_cp{itr_movImg};
     mv_cp = convertStringsToChars(mv_cp);
     
-    mv_Dir = [df_dstPath_suffix mv_cp]; 
+    mv_Dir = [df_dstPath_suffix mv_cp];
     mkdir(mv_Dir);
+    avg_Dir = [avg_df_path mv_cp];
+    mkdir(avg_Dir);
     
     % Iterate through each template image and register the moving image
     % against it.
@@ -155,12 +158,32 @@ for itr_movImg = 1 : c_movImages
     clear avgDef_y;
     clear avgDef_z;
     
-    path = [df_dstPath_suffix mv_cp '\deformationField.mhd'];
-    fprintf("path is %s\n", path);
+    deffieldPFN = [avg_Dir '\deformationField.mhd'];
+    fprintf("path is %s\n", deffieldPFN);
     
-    f = write_mhd(path, img);
+    f = write_mhd(deffieldPFN, img);
     % pause?? or error code..
     % writing operation is done, clear 'img' now.
+    
+    exeDir = 'C:\Program Files\Convert3D\bin\';
+    c3d = ['"' exeDir 'c3d.exe" '];
+    
+    WNP = [srcFilePath '\mhd\'];
+    srcNPPFN = [WNP mv_cp '.mhd'];
+    
+    operation='  -interpolation cubic -warp -clip 0 65535 -type ushort -compress -o  ';
+    warpCmd = [c3d '-mcs ' '"' deffieldPFN '"' ' -popas defZ -popas defY -popas defX '...
+        ' -push defX -push defY -push defZ ' '"' srcNPPFN '"' operation '"' mv_Dir '\' mv_cp '.tif' '"'];
+    fprintf("Warping Average Deformation Field %s\n\n", warpCmd);
+    
+    tic
+    [status,cmdout] = system(warpCmd);
+    assert(status==0, [datestr(datetime) sprintf([' -- Warping of scan:  ' mv_cp '  failed.\n' cmdout])] )
+    t=toc;
+    logstr = [datestr(datetime) sprintf(' -- Warping took: %g s' ,t)];
+    fprintf("logstr is %s\n", logstr);
+    rmdir(avg_Dir, 's');
+    
     clear img;
 end
 end

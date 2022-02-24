@@ -103,7 +103,7 @@ try
     
     % Register SDT
     [status1,cmdout] = system( elxExeShell_Orig_SDT );  % orig
-    [status3,cmdout] = system( elxExeShell_Zflip_SDT ); % zflip
+    %[status3,cmdout] = system( elxExeShell_Zflip_SDT ); % zflip
     FinalMetricValue.origSDT = GetFinalMetricValue( Orig_SDT_PN );
     FinalMetricValue.zflipSDT = GetFinalMetricValue( Zflip_SDT_PN );
     
@@ -115,7 +115,7 @@ try
     %display(sprintf(logstr))
     
     status2=1;status4=1;
-    if (FinalMetricValue.origSDT <= FinalMetricValue.zflipSDT)
+    if (1)
         [status2,cmdout] = system( elxExeShell_Orig_Intens );
     else
         [status4,cmdout] = system( elxExeShell_Zflip_Intens );

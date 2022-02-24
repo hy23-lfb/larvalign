@@ -4,7 +4,7 @@
 %%
 function h_updateScript(sc, ex)
 
-filename = "D:\Harsha\Repository\larvalign\source\larvalign\m\helperScripts\updateTemplates_18h.sh";
+filename = "D:\Harsha\Repository\larvalign\source\larvalign\m\helperScripts\updateTemplates_24h.sh";
 fid = fopen(filename);
 C=textscan(fid,'%s','delimiter','\n');
 fclose(fid);
