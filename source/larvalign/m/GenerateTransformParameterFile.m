@@ -13,7 +13,7 @@ try
     elxExe = ['"' exeDir 'elastix.exe" '];
     c3d = ['"' exeDir 'c3d.exe" '];
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='B6_Flip_PP.mhd';
+    atlasLabel='rich_1_PP.mhd';
     templateImgPFN = [atlasNPDir atlasLabel];
     exlPriority='idle';
     
@@ -59,13 +59,17 @@ try
     doRotZ=false;
     idxT=find(~cellfun(@isempty, strfind(template,'(TransformParameters')));
     try
-        [status,cmdout] = system([ c3d '"' IMCenter_PFN '"' ' -thresh 30 65535 1 0 -centroid']);
-        temp = [ c3d '"' IMCenter_PFN '"' ' -thresh 30 65535 1 0 -centroid'];
+        [status,cmdout] = system([ c3d '"' IMCenter_PFN '"' ' -thresh 30 255 1 0 -centroid']);
+        temp = [ c3d '"' IMCenter_PFN '"' ' -thresh 30 255 1 0 -centroid'];
         centroidVox=cell2mat(textscan(cmdout,'CENTROID_VOX [%u, %u, %u]'));
+        fprintf("centroidVox is [%u, %u, %u]\n", centroidVox);
         if (header.Dimensions(2)-centroidVox(2)) < (header.Dimensions(2)/2)
             doRotZ=true;
             template{idxT,1} = ['(TransformParameters 0 3.14159 3.14159 0 0 0 )'];
         end
+        fprintf("header.Dimensions(2) is %u\n", header.Dimensions(2));
+        fprintf("centroidVox(2) is %u\n", centroidVox(2));
+        fprintf("header.Dimensions(2)-centroidVox(2) is %u\n", header.Dimensions(2)-centroidVox(2));
     catch ME
         logstr = [datestr(datetime) sprintf(' -- Unexpected intensity distribution. Rotation analysis failed.')];
         %display((sprintf(logstr));

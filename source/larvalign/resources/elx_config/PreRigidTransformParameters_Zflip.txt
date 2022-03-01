@@ -7,7 +7,7 @@
 (MovingImageDimension 3)
 (FixedInternalImagePixelType "float")
 (MovingInternalImagePixelType "float")
-(Size 602 284 336)
+(Size 512 512 32)
 (Index 0 0 0)
 (Spacing 1 1 1)
 (Origin 0 0 0)

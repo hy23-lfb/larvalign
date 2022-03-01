@@ -7,7 +7,7 @@ function RegistrationErrorDetection(rootpath, deffieldPN, scanID, ext, RegOutput
 %%
 try
     % dirs
-    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\B6_Flip_PP.mhd'];
+    TemplateImagePFN = [rootpath '\resources\Templates\Neuropil\rich_1_PP.mhd'];
     REDPN = [ rootpath '\resources\RED\'];
     IR_PFN = [ outputDir 'RegisteredScans\NP\' scanID '.' ext ];
     deffieldPFN = [deffieldPN '\deformationField.mhd'];
@@ -24,7 +24,7 @@ try
     Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
     lowclip=num2str(ceil(cell2mat(textscan(Ctmp{1,1}{7,1},'%f'))));
     IRN_PFN = [RegOutputDir  scanID '.mhd'];
-    [status,cmdout] = system([  c3d '"' IR_PFN '"  -clip ' lowclip ' 65535  -replace ' lowclip ' 0  -type uchar -compress -o ' '"' IRN_PFN '"' ]);
+    [status,cmdout] = system([  c3d '"' IR_PFN '"  -clip ' lowclip ' 255  -replace ' lowclip ' 0  -type uchar -compress -o ' '"' IRN_PFN '"' ]);
     assert(status==0, 'Processing failure.')
     IR_PFN = IRN_PFN;
     

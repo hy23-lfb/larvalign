@@ -6,9 +6,9 @@ function [status, cmdout] = h_generateTemplateFiles(scount, ecount)
 %%
 
 warning('off','MATLAB:MKDIR:DirectoryExists');
-fname_prefix = 'B';
-fname_suffix = '_Flip';
-path_suffix = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\meta18\';
+fname_prefix = 'rich_';
+fname_suffix = '';
+path_suffix = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\meta_rich\';
 % Create mhd files.
 [status, cmdout] = h_tif2mhd(scount, ecount, path_suffix, fname_prefix, fname_suffix);
 

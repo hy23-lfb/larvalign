@@ -171,7 +171,7 @@ for itr_movImg = 1 : c_movImages
     WNP = [srcFilePath '\mhd\'];
     srcNPPFN = [WNP mv_cp '.mhd'];
     
-    operation='  -interpolation cubic -warp -clip 0 65535 -type ushort -compress -o  ';
+    operation='  -interpolation cubic -warp -clip 0 255 -type uchar -compress -o  ';
     warpCmd = [c3d '-mcs ' '"' deffieldPFN '"' ' -popas defZ -popas defY -popas defX '...
         ' -push defX -push defY -push defZ ' '"' srcNPPFN '"' operation '"' mv_Dir '\' mv_cp '.tif' '"'];
     fprintf("Warping Average Deformation Field %s\n\n", warpCmd);

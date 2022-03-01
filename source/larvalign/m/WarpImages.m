@@ -61,7 +61,7 @@ try
     tic
     logstr = [datestr(datetime) sprintf(' -- Warping of channels...')];
     display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);
-    operation=['  -interpolation cubic -warp -clip 0 65535 -type ushort -compress -o  '];
+    operation=['  -interpolation cubic -warp -clip 0 255 -type uchar -compress -o  '];
     if ~isempty(srcNTPFN)
         warpNT = [' -push defX -push defY -push defZ ' '"' srcNTPFN '"'  operation  '"' outputNTPN scanID '.' ext '"'];
     else

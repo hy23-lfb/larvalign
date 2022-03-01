@@ -11,9 +11,9 @@ try
     
     % reference images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='B6_Flip_PP.mhd';
-    templateImg2FN='B6_Flip_PP.mhd';
-    atlasSDTN='B6_Flip_SDT.mhd';
+    atlasLabel='rich_1_PP.mhd';
+    templateImg2FN='rich_1_PP.mhd';
+    atlasSDTN='rich_1_SDT.mhd';
     
     
     % exe
@@ -107,6 +107,14 @@ try
     FinalMetricValue.origSDT = GetFinalMetricValue( Orig_SDT_PN );
     FinalMetricValue.zflipSDT = GetFinalMetricValue( Zflip_SDT_PN );
     
+    fprintf("elxExeShell_Orig_SDT is %s\n", elxExeShell_Orig_SDT);
+    fprintf("FinalMetricValue.origSDT is %u\n", FinalMetricValue.origSDT);
+    fprintf("\n");
+    
+    fprintf("elxExeShell_Zflip_SDT is %s\n", elxExeShell_Zflip_SDT);
+    fprintf("FinalMetricValue.zflipSDT is %u\n", FinalMetricValue.zflipSDT);
+    fprintf("\n");
+    
     % Register SDTIntens
     % Intensity registration for refinement, based on SDT reg transformparameters
     logstr = [datestr(datetime) sprintf(' -- Linear intensity-based registration...')];
@@ -123,11 +131,18 @@ try
     FinalMetricValue.origSDTIntens = GetFinalMetricValue( Orig_IntensSDT_PN );
     FinalMetricValue.zflipSDTIntens = GetFinalMetricValue( Zflip_IntensSDT_PN );
     
+    fprintf("elxExeShell_Orig_Intens is %s\n", elxExeShell_Orig_Intens);
+    fprintf("FinalMetricValue.origSDTIntens is %u\n", FinalMetricValue.origSDTIntens);
+    fprintf("\n");
+    
+    fprintf("elxExeShell_Zflip_Intens is %s\n", elxExeShell_Zflip_Intens);
+    fprintf("FinalMetricValue.zflipSDTIntens is %u\n", FinalMetricValue.zflipSDTIntens);
+    fprintf("\n");
+    
     if FinalMetricValue.origSDT==0, status2=1;end % Mask/SDT failed
     if FinalMetricValue.zflipSDT==0, status4=1;end % Mask/SDT failed
     if FinalMetricValue.origSDTIntens>-0.40, status2=1;end % Reg likely failed
     if FinalMetricValue.zflipSDTIntens>-0.40, status4=1;end % Reg likely failed
-    
     
     if ~useLandmarks
         if (status2~=0 && status4~=0)  % run prereg w/o SDT
@@ -142,12 +157,18 @@ try
             [status24,cmdout] = system( elxExeShell_Zflip_Intens );
             FinalMetricValue.origIntens = GetFinalMetricValue( Orig_Intens_PN );
             FinalMetricValue.zflipIntens = GetFinalMetricValue( Zflip_Intens_PN );
+            
+            fprintf("elxExeShell_Orig_wo_Intens is %s\n", elxExeShell_Orig_Intens);
+            fprintf("FinalMetricValue.origIntens is %u\n", FinalMetricValue.origIntens);
+            fprintf("\n");
+            
+            fprintf("elxExeShell_Zflip_wo_Intens is %s\n", elxExeShell_Zflip_Intens);
+            fprintf("FinalMetricValue.zflipIntens is %u\n", FinalMetricValue.zflipIntens);
+            fprintf("\n");
         end
     end
     %delete([PreRegDir '\Mask_SDT.mhd'],[PreRegDir '\Mask_SDT.zraw'])
-    
-    
-    
+     
     %% Final metric value of elastix
     FinalMetricValue.orig=FinalMetricValue.origSDTIntens;
     FinalMetricValue.zflip=FinalMetricValue.zflipSDTIntens;
@@ -183,14 +204,21 @@ try
         TransformParamPreRegPFN = ZflipTransformParamPreRegPFN;
     end
     
+    fprintf("FinalMetricValue.orig is %u\n", FinalMetricValue.orig);
+    fprintf("FinalMetricValue.zflip is %u\n", FinalMetricValue.zflip);
     
     if (FinalMetricValue.orig==0 && FinalMetricValue.zflip==0)
+        
         logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s   failed.', scanID)];
         %display(sprintf(logstr));
         fprintf(LogFileID,[logstr '\n']);
         error(logstr)
     end
+    
+    fprintf("\n");
+    fprintf("FinalMetricValue min is %u\n", min([FinalMetricValue.orig,FinalMetricValue.zflip]));
     if ( ~useLandmarks && min([FinalMetricValue.orig,FinalMetricValue.zflip])>-0.40 )
+        fprintf("I am here\n");
         logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s   probably failed.', scanID)];
         %display(sprintf(logstr));
         fprintf(LogFileID,[logstr '\n']);

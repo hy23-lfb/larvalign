@@ -27,7 +27,7 @@ try
     [status,cmdout] = system([ c3d '"' ChannelImgPFN.NP '"  -info-full ']);
     Ctmp=textscan(cmdout,'%s','Delimiter',{'  Mean Intensity     : '});
     lowclip=num2str(ceil(cell2mat(textscan(Ctmp{1,1}{7,1},'%f'))));
-    [status,cmdout] = system([  c3d '"' ChannelImgPFN.NP '"  -clip ' lowclip ' 65535  -replace ' lowclip ' 0  -type ushort -compress -o "' NPDir scanID '.mhd"' ]);
+    [status,cmdout] = system([  c3d '"' ChannelImgPFN.NP '"  -clip ' lowclip ' 255  -replace ' lowclip ' 0  -type uchar -compress -o "' NPDir scanID '.mhd"' ]);
     assert(status==0, 'Processing failure.')
     ChannelImgPFN.NP = [NPDir scanID '.mhd'];
     

@@ -39,7 +39,7 @@ try
     logstr = [datestr(datetime) sprintf(' -- Warping of channels...')];
     fprintf("%s\n", logstr);
     
-    operation='  -interpolation cubic -warp -clip 0 65535 -type ushort -compress -o  ';
+    operation='  -interpolation cubic -warp -clip 0 255 -type uchar -compress -o  ';
     warpCmd = [c3d '-mcs ' '"' deffieldPFN '"' ' -popas defZ -popas defY -popas defX '...
         ' -push defX -push defY -push defZ ' '"' srcNPPFN '"' operation '"' outputNPPN imFile '.' ext '"'];
     fprintf("WarpCmd is %s\n\n", warpCmd);

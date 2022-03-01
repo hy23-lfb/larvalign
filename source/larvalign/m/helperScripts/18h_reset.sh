@@ -1,5 +1,5 @@
-sanction='B7_Flip'
-expunge='B4'
+sanction='rich_1'
+expunge='B6_Flip'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
@@ -22,6 +22,6 @@ read -p "Press [Enter] key to remove files from Neuropil..."
 rm /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/$expunge*
 
 read -p "Press [Enter] key to copy files to Neuropil..."
-cp  /i/Dataset/Standard_Brain/02.Standard_Brain/meta18_25_percent/meta18/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+cp  /d/Harsha/Files_Hiwi/Datasets/Standard_Brain/meta_rich/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
 read -p "Press [Enter] key to close!"
 
