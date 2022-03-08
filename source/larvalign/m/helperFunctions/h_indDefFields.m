@@ -22,4 +22,5 @@ colorbar;
 filename = [dir '\' name '.png'];
 saveas(gcf, filename);
 fprintf('figure saved in %s\n', filename);
+close;
 end
