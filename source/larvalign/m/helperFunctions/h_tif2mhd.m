@@ -15,8 +15,7 @@ tmpDir = [path_suffix 'tmp\'];
 mkdir(tmpDir);
 
 for j=scount:ecount
-    i = num2str(j);
-    file = append(fname_prefix, i, fname_suffix);
+    file = append(fname_prefix, fname_suffix);
     in_path = [path_suffix file '.tif'];
     out_path = [mhdpath file '.mhd'];
     
