@@ -24,9 +24,9 @@ z = size(tiff_info, 1);
 
 % Two separate arrays.
 % Used to update the name of the files in the program.
-movImages = ["'C3'", "'C4'", "'C5'", "'C3_Flip'","'C4_Flip'", "'C5_Flip'"];
+movImages = ["'C5'", "'C4'", "'C3'", "'C3_Flip'", "'C4_Flip'", "'C5_Flip'"];
 % Used to create directories or read files from the existing directories.
-movImages_cp = ["C3", "C4", "C5", "C3_Flip", "C4_Flip", "C5_Flip"];
+movImages_cp = ["C5", "C4", "C3", "C3_Flip", "C4_Flip", "C5_Flip"];
 
 [~, c_movImages] = size(movImages);
 numOfPairWiseRegistrations = c_movImages - 1;
@@ -43,7 +43,7 @@ srcFilePath = convertStringsToChars(srcFilePath);
 h_updateLarvalignPath(srcFilePath);
 
 % Iterate through each moving images.
-for itr_movImg = 1 : c_movImages
+for itr_movImg = 1 : 1
     
     % Every image (moving image) is registered against every other
     % available images (fixed images). The individual deformation fields

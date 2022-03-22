@@ -15,13 +15,13 @@ output_stack = zeros(r,c,stack_size);
 
 for no_of_stack = 1:stack_size
     c3 = imread(c3_path, no_of_stack);
-    c4 = imread(c4_path, no_of_stack);
+    %c4 = imread(c4_path, no_of_stack);
     c5 = imread(c5_path, no_of_stack);
     c3_Flip = imread(c3_flip_path, no_of_stack);
-    c4_Flip = imread(c4_flip_path, no_of_stack);
+    %c4_Flip = imread(c4_flip_path, no_of_stack);
     c5_Flip = imread(c5_flip_path, no_of_stack);
 
-    cat_Stack = cat(3, c3, c4, c5, c3_Flip, c4_Flip, c5_Flip);
+    cat_Stack = cat(3, c3, c5, c3_Flip, c5_Flip);
     output_stack(:,:,no_of_stack) = median(cat_Stack, 3);
 end
 output = uint16(output_stack);
