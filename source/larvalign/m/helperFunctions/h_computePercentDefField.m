@@ -2,13 +2,10 @@ function h_computePercentDefField()
 
 warning('off','MATLAB:MKDIR:DirectoryExists');
 
-[df, ~] = read_mhd('D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\Template_Registration_Result\18h_to_24h\100p\deformationField.mhd');
-h_indDefFields(df, 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\Template_Registration_Result\18h_to_24h\100p', '100p');
+path = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\important\18Lin-24-Nonlinear_Register\percents\';
 
-sPercent = 0.10;
-
-folders = ["10p", "20p", "30p", "40p", "50p", "60p", "70p", "80p", "90p"];
-path = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\Template_Registration_Result\18h_to_24h\';
+sPercent = 0.05;
+folders = ["5p", "10p", "15p", "20p", "25p", "30p", "35p", "40p", "45p", "50p", "55p", "60p", "65p", "70p", "75p", "80p", "85p", "90p", "95p", "100p"];
 
 [~, c] = size(folders);
 
@@ -19,7 +16,7 @@ for i = 1:c
     filedir = [path fol];
     mkdir(filedir);
     
-    [df, ~] = read_mhd('D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\Template_Registration_Result\18h_to_24h\100p\deformationField.mhd');
+    [df, ~] = read_mhd('D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\important\18Lin-24-Nonlinear_Register\deformationField\deformationField.mhd');
 
     fprintf("iteration %d\n", i);
     
@@ -38,7 +35,6 @@ for i = 1:c
     
     img.data = img.datax.^2 + img.datay.^2 + img.dataz.^2;
     
-    h_indDefFields(img, filedir, fol);
     file = [filedir '\' 'deformationField.mhd'];
     f = write_mhd(file, img);
     if (f == 0)

@@ -81,6 +81,7 @@ try
     display(sprintf(logstr));
     fprintf(LogFileID,[logstr '\n']);
     
+    
     %% Computing composed dense deffield
     CombineTransformations( rootpath, resultStage1Dir, ChannelImgPFN, LogFileID)
     

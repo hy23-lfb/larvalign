@@ -8,8 +8,8 @@ function msg = larvalignMain(varargin)
 % setdbprefs('errorhandling','report')
 
 OutputDir = 'D:\Harsha\Files_Hiwi\Output';
-path_sfx = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\18hr_Template_25p\';
-fm = '18h_Template';
+path_sfx = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\important\18-24-Linear_Register\';
+fm = '18h_Template_Lin';
 LSM_PFN=[path_sfx fm '.tif'];
 varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};
 
