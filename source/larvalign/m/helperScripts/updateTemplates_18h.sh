@@ -17,4 +17,4 @@ echo -e "\nFinding MASK files ...\n"
 grep -rl $input_mask /d/Harsha/Repository/larvalign/source/ | xargs sed -i "s/${input_mask}/${output_mask}/g"
 
 rm /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/$expunge*
-cp  /i/Dataset/Standard_Brain/02.Standard_Brain/meta18_25_percent/meta18/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+cp  /d/Harsha/Files_Hiwi/Datasets/Standard_Brain/72h_Template/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/

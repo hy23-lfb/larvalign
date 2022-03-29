@@ -30,7 +30,7 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='24h_Template_PP.mhd';
+    atlasLabel='72h_Template_PP.mhd';
     atlasMaskN='AtlasImgMedian_Mask.mhd';
     
     % Landmark point correspondences

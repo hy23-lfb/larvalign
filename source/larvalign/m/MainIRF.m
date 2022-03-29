@@ -191,7 +191,6 @@ try
     resultDir = [OutputDir  'tmp\\' scanID ];
     
     
-    
     %% Log-file
     warning('off','MATLAB:MKDIR:DirectoryExists');
     mkdir([OutputDir 'LogFiles']);
@@ -462,7 +461,7 @@ try
         end
     end
     
-    
+
     %% Display landmark coordinates of landmark text files
     msg=[];
     if strcmp(Method,'SemiAutomatic')

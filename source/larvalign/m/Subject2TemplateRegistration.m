@@ -30,8 +30,8 @@ try
     
     % Images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='24h_Template_PP.mhd';
-    atlasMaskN='24h_Template_MASK.mhd';
+    atlasLabel='72h_Template_PP.mhd';
+    atlasMaskN='72h_Template_MASK.mhd';
     
     
     %% Registration of Subjects to Atlas
@@ -53,17 +53,20 @@ try
     logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s' ,scanID)];
     display(sprintf(logstr));
     fprintf(LogFileID,[logstr '\n']);
+    fprintf("I AM HERE\n")
     GenerateTransformParameterFile(rootpath, CPUGPU, IM_NP_PFN, PreRegDir, LogFileID);
+    fprintf("I AM HERE\n")
     TransformParamPreRegPFN = ZflipRotationRegistration(rootpath, CPUGPU, scanID, IM_NP_PFN, PreRegDir, '', '', LogFileID);
+    fprintf("I AM HERE\n")
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
     display(sprintf(logstr));
     fprintf(LogFileID,[logstr '\n']);
     
-    %mkdir(resultStage1Dir);
-    %copyfile(TransformParamPreRegPFN, resultStage1Dir);
+    mkdir(resultStage1Dir);
+    copyfile(TransformParamPreRegPFN, resultStage1Dir);
     
-    
+    %{
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -80,7 +83,7 @@ try
     logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
     display(sprintf(logstr));
     fprintf(LogFileID,[logstr '\n']);
-    
+    %}
     
     %% Computing composed dense deffield
     CombineTransformations( rootpath, resultStage1Dir, ChannelImgPFN, LogFileID)

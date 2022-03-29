@@ -11,9 +11,9 @@ try
     
     % reference images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='24h_Template_PP.mhd';
-    templateImg2FN='24h_Template_PP.mhd';
-    atlasSDTN='24h_Template_SDT.mhd';
+    atlasLabel='72h_Template_PP.mhd';
+    templateImg2FN='72h_Template_PP.mhd';
+    atlasSDTN='72h_Template_SDT.mhd';
     
     
     % exe

@@ -13,14 +13,13 @@ try
     elxExe = ['"' exeDir 'elastix.exe" '];
     c3d = ['"' exeDir 'c3d.exe" '];
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='24h_Template_PP.mhd';
+    atlasLabel='72h_Template_PP.mhd';
     templateImgPFN = [atlasNPDir atlasLabel];
     exlPriority='idle';
     
     % parameter files
     parameterDir = [rootpath '\resources\elx_config\'];
     PreRegTemplateZflipPFN=[ parameterDir 'PreRigidTransformParameters_Zflip.txt'];
-    
     
     %% Logfile
     logstr = [datestr(datetime) sprintf(' -- Preparing initial transformation...')];
@@ -36,8 +35,11 @@ try
         case 'GPU'
             PreRegCompPFN = [parameterDir 'PreReg_CompSDT_OpenCL.txt'];
     end
+    fprintf("I AM HERE3\n")
     elxExeShell= [elxExe ' -f ' '"' IF '"' ' -m ' '"' IM_PFN '"' ' '   ' -out ' '"' PreRegDir '"' ' -p ' '"' PreRegCompPFN '"'  ' -priority ' exlPriority];
+    fprintf("%s\n", elxExeShell);
     [status,cmdout] = system( elxExeShell);
+    fprintf("%s\n", cmdout);
     assert( status==0 )
     IMCenter_PFN = [PreRegDir '\result.0.mhd'];
     
@@ -48,6 +50,7 @@ try
     fclose(fileID);
     InitialTransformParametersFileName = [PreRegDir '\TransformParameters.0.txt'];
     
+    fprintf("I AM HERE2\n")
     %% Generate TransformParameters
     header=read_mhd_header( IMCenter_PFN );
     assert( ~isempty(header), 'Error reading image file header.')
@@ -72,6 +75,7 @@ try
         fprintf(LogFileID,[logstr '\n']);
     end
     
+    fprintf("I AM HERE1\n")
     % calc center of rotation, i.e. image center
     imgcenter=round( (header.Offset+(header.Dimensions .* header.PixelDimensions)) ./ 2);
     idx=find(~cellfun(@isempty, strfind(template,'CenterOfRotationPoint')));
