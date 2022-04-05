@@ -37,6 +37,8 @@ try
             PreRegCompPFN = [parameterDir 'PreReg_CompSDT_OpenCL.txt'];
     end
     elxExeShell= [elxExe ' -f ' '"' IF '"' ' -m ' '"' IM_PFN '"' ' '   ' -out ' '"' PreRegDir '"' ' -p ' '"' PreRegCompPFN '"'  ' -priority ' exlPriority];
+    fprintf("%s\n", elxExeShell);
+    
     [status,cmdout] = system( elxExeShell);
     assert( status==0 )
     IMCenter_PFN = [PreRegDir '\result.0.mhd'];

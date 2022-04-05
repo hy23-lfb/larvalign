@@ -8,7 +8,7 @@ function msg = larvalignMain(varargin)
 % setdbprefs('errorhandling','report')
 
 OutputDir = 'D:\Harsha\Files_Hiwi\Output';
-path_sfx = 'I:\Dataset\Standard_Brain\02.Standard_Brain\E12e_BP106\rich\meta_rich\';
+path_sfx = 'D:\Harsha\Files_Hiwi\Datasets\convexHull\threshold60\';
 fm = 'rich_3';
 LSM_PFN=[path_sfx fm '.tif'];
 varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};

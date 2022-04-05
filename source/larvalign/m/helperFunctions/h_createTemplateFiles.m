@@ -51,7 +51,7 @@ meanIntensity = cell2mat(textscan(Ctmp{1,1}{7,1},'%f')); % estimation of backgro
 lowclip=num2str(ceil(meanIntensity)+5);
 [status,cmdout] = system([ c3d '"' ppfilename '"'...
     ' -clip ' lowclip ' 255  -replace ' lowclip ' 0 -binarize -erode 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -dilate 1 1x1x1 -popas mask '...
-    ' -push mask -type char -compress -o ' '"' maskfilename '"' ]);
+    ' -push mask -type uchar -compress -o ' '"' maskfilename '"' ]);
 fprintf("Finished creating mask template.\n");
 end
 

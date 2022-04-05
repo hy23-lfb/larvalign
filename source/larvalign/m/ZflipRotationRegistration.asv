@@ -102,23 +102,24 @@ try
     
     
     % Register SDT
-    fprintf("elxExeShell_Orig_SDT %s\n", elxExeShell_Orig_SDT);
+    fprintf("%s\n", elxExeShell_Orig_SDT);
     [status1,cmdout] = system( elxExeShell_Orig_SDT );  % orig
-    %fprintf("%s\n", cmdout);
+    fprintf("%s\n", cmdout);
     assert( status1==0 )
-    
-    fprintf("\n");
-    %fprintf("elxExeShell_Zflip_SDT %s\n", elxExeShell_Zflip_SDT);
-    %[status3,cmdout] = system( elxExeShell_Zflip_SDT ); % zflip
-    %fprintf("%s\n", cmdout);
-    %assert( status3==0 )
-    
+    fprintf("%s\n", elxExeShell_Zflip_SDT);
+    [status3,cmdout] = system( elxExeShell_Zflip_SDT ); % zflip
+    fprintf("%s\n", cmdout);
+    assert( status3==0 )
     FinalMetricValue.origSDT = GetFinalMetricValue( Orig_SDT_PN );
     FinalMetricValue.zflipSDT = GetFinalMetricValue( Zflip_SDT_PN );
     
+    fprintf("elxExeShell_Orig_SDT is %s\n", elxExeShell_Orig_SDT);
+    fprintf("FinalMetricValue.origSDT is %u\n", FinalMetricValue.origSDT);
     fprintf("\n");
-    fprintf("FinalMetricValue.origSDT is %u\n", FinalMetricValue.origSDT);   
+    
+    fprintf("elxExeShell_Zflip_SDT is %s\n", elxExeShell_Zflip_SDT);
     fprintf("FinalMetricValue.zflipSDT is %u\n", FinalMetricValue.zflipSDT);
+    fprintf("\n");
     
     % Register SDTIntens
     % Intensity registration for refinement, based on SDT reg transformparameters
@@ -129,32 +130,29 @@ try
     
     status2=1;status4=1;
     if (1)
-        fprintf("\n");
-        fprintf("elxExeShell_Orig_Intens %s\n", elxExeShell_Orig_Intens);
+        
         [status2,cmdout] = system( elxExeShell_Orig_Intens );
-        %fprintf("%s\n", cmdout);
         assert( status2==0 )
     else
-        fprintf("\n");
-        fprintf("elxExeShell_Zflip_Intens %s\n", elxExeShell_Zflip_Intens);
         [status4,cmdout] = system( elxExeShell_Zflip_Intens );
-        %fprintf("%s\n", cmdout);
         assert( status4==0 )
     end
     FinalMetricValue.origSDTIntens = GetFinalMetricValue( Orig_IntensSDT_PN );
     FinalMetricValue.zflipSDTIntens = GetFinalMetricValue( Zflip_IntensSDT_PN );
     
+    fprintf("elxExeShell_Orig_Intens is %s\n", elxExeShell_Orig_Intens);
+    fprintf("FinalMetricValue.origSDTIntens is %u\n", FinalMetricValue.origSDTIntens);
     fprintf("\n");
-    fprintf("FinalMetricValue.origSDTIntens is %u\n", FinalMetricValue.origSDTIntens);   
+    
+    fprintf("elxExeShell_Zflip_Intens is %s\n", elxExeShell_Zflip_Intens);
     fprintf("FinalMetricValue.zflipSDTIntens is %u\n", FinalMetricValue.zflipSDTIntens);
-
+    fprintf("\n");
     
     if FinalMetricValue.origSDT==0, status2=1;end % Mask/SDT failed
     if FinalMetricValue.zflipSDT==0, status4=1;end % Mask/SDT failed
     if FinalMetricValue.origSDTIntens>-0.40, status2=1;end % Reg likely failed
     if FinalMetricValue.zflipSDTIntens>-0.40, status4=1;end % Reg likely failed
     
-    status4 = 0;
     if ~useLandmarks
         if (status2~=0 && status4~=0)  % run prereg w/o SDT
             fprintf("Running without SDT\n");
@@ -162,29 +160,22 @@ try
             IM = ['"' IM_PFN '"'];
             TransformFileZflip=['"' PreRegDir  '\TransformParameters_-Z.txt"'];
             TransformFileZ=['"' PreRegDir  '\TransformParameters_Z.txt"'];
-            
             elxExeShell_Orig_Intens= [elxExe ' -f ' IF  ' -m ' IM ' '   ' -out ' '"' Orig_Intens_PN '"' ' -p ' '"' PreRegIntensPFN '"' ' -t0 ' TransformFileZ ' -p "'  PreRegIntens2PFN  '"' ' -priority ' exlPriority];
-            
             elxExeShell_Zflip_Intens=[elxExe ' -f ' IF  ' -m ' IM ' '   ' -out ' '"' Zflip_Intens_PN '"' ' -p ' '"' PreRegIntensPFN '"' ' -t0 ' TransformFileZflip ' -p "'  PreRegIntens2PFN  '"' ' -priority ' exlPriority];
-            
-            fprintf("\n");
-            fprintf("elxExeShell_Orig_Intens %s\n", elxExeShell_Orig_Intens);
             [status22,cmdout] = system( elxExeShell_Orig_Intens );
-            %fprintf("%s\n", cmdout);
             assert( status22==0 )
-            
-            fprintf("\n");
-            fprintf("elxExeShell_Zflip_Intens %s\n", elxExeShell_Zflip_Intens);
             [status24,cmdout] = system( elxExeShell_Zflip_Intens );
-            %fprintf("%s\n", cmdout);
             assert( status24==0 )
-            
             FinalMetricValue.origIntens = GetFinalMetricValue( Orig_Intens_PN );
             FinalMetricValue.zflipIntens = GetFinalMetricValue( Zflip_Intens_PN );
             
-            fprintf("\n");
+            fprintf("elxExeShell_Orig_wo_Intens is %s\n", elxExeShell_Orig_Intens);
             fprintf("FinalMetricValue.origIntens is %u\n", FinalMetricValue.origIntens);
+            fprintf("\n");
+            
+            fprintf("elxExeShell_Zflip_wo_Intens is %s\n", elxExeShell_Zflip_Intens);
             fprintf("FinalMetricValue.zflipIntens is %u\n", FinalMetricValue.zflipIntens);
+            fprintf("\n");
         end
     end
     %delete([PreRegDir '\Mask_SDT.mhd'],[PreRegDir '\Mask_SDT.zraw'])
@@ -199,19 +190,15 @@ try
     if ~useLandmarks
         if (status2~=0 && status4~=0)
             if (FinalMetricValue.origIntens<=FinalMetricValue.origSDTIntens)
-                fprintf("\nOrigIntes is smaller than OrigSDTIntense\n");
                 FinalMetricValue.orig=FinalMetricValue.origIntens;
                 OrigTransformParamPreRegPFN = [PreRegDir '\Orig\Intens\TransformParameters.0.txt'];
             else
-                fprintf("\nOrigIntes is greater than OrigSDTIntense\n");
                 FinalMetricValue.orig=FinalMetricValue.origSDTIntens;
             end
             if (FinalMetricValue.zflipIntens<=FinalMetricValue.zflipSDTIntens)
-                fprintf("\nZflipIntes is smaller than ZflipSDTIntense\n");
                 FinalMetricValue.zflip=FinalMetricValue.zflipIntens;
                 ZflipTransformParamPreRegPFN = [PreRegDir '\Zflip\Intens\TransformParameters.0.txt'];
             else
-                fprintf("\nZflipIntes is greater than ZflipSDTIntense\n");
                 FinalMetricValue.zflip=FinalMetricValue.zflipSDTIntens;
             end
         end

@@ -60,10 +60,10 @@ try
     display(sprintf(logstr));
     fprintf(LogFileID,[logstr '\n']);
     
-    %mkdir(resultStage1Dir);
-    %copyfile(TransformParamPreRegPFN, resultStage1Dir);
+    mkdir(resultStage1Dir);
+    copyfile(TransformParamPreRegPFN, resultStage1Dir);
     
-    
+    %{
     %% Nonlinear registration (DIR)
     tic
     mkdir(resultStage1Dir);
@@ -80,6 +80,7 @@ try
     logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
     display(sprintf(logstr));
     fprintf(LogFileID,[logstr '\n']);
+    %}
     
     %% Computing composed dense deffield
     CombineTransformations( rootpath, resultStage1Dir, ChannelImgPFN, LogFileID)
