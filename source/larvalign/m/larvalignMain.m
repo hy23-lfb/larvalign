@@ -8,7 +8,7 @@ function msg = larvalignMain(varargin)
 % setdbprefs('errorhandling','report')
 
 OutputDir = 'D:\Harsha\Files_Hiwi\Output';
-path_sfx = 'D:\Harsha\Files_Hiwi\Datasets\convexHull\threshold60\';
+path_sfx = 'D:\Harsha\Repository\larvalign\commitResults\rich_mask\';
 fm = 'rich_3';
 LSM_PFN=[path_sfx fm '.tif'];
 varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};

@@ -1,0 +1,1 @@
+ run("ImageJ2...", "scijavaio=true");  open("D:\\Harsha\\Repository\\larvalign\\commitResults\\rich_mask\\rich_6.tif"); selectWindow("rich_6.tif"); run("MHD/MHA ...", "save=[D:\\Harsha\\Repository\\larvalign\\commitResults\\rich_mask\\mhd\\rich_6.mhd]");  run("Quit"); 
