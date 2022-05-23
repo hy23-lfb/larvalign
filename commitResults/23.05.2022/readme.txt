@@ -1,0 +1,1 @@
+trying to operate on all the stacks at once, I am getting a unit affine matrix.
