@@ -488,7 +488,7 @@ if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImg
         tmp3=[' run("Save", "save=[' outDir_fiji 'ge.tif]");'];
         merge3=[' c' LSMchannelGE '=[ge.tif]'];
     end             
-    fijiMerge=[' run("Merge Channels...", "c' LSMchannelNP '=[np.tif]' merge2 merge3 '");'];
+    fijiMerge=[' run("Merge Channels...", "c' LSMchannelNP '=[np.tif]' merge2 merge3 ' create keep");'];
     fijiSaveTif=[' saveAs("ZIP", "' outDir_fiji  scanID '.tif.zip"); ']; 
     stringBuffer = [ fijiOpen1 tmp1 fijiOpen2 tmp2 fijiOpen3 tmp3 fijiMerge fijiSaveTif ' close(); run("Quit");'];    
     fileID = fopen([outDir_fiji scanID '_mhd2tif.txt'],'w');

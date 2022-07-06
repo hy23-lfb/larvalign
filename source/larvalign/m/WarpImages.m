@@ -44,7 +44,13 @@ assert(status==0, [datestr(datetime) sprintf([' -- Warping of scan:  ' scanID ' 
 t=toc;
 logstr = [datestr(datetime) sprintf(' -- Warping took: %g s' ,t)];
 display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);        
- 
+
+LogFileID = fopen(['D:\Harsha\Files_Hiwi\LogFiles\' 'Affine_Registration.log'],'a+');
+[status1,cmdout3] = system([ c3d '"' outputNPPN scanID '.' ext '" -info ']);
+assert(status1 == 0, 'Probelm in reading registered NP file.');
+msg= sprintf([scanID ': ' cmdout3(10:end-1) '\n']);
+fprintf(LogFileID, msg);
+fclose(LogFileID);
 
 catch ME; 
     throwAsCaller(ME)

@@ -57,20 +57,29 @@ logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
 display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);    
 
 
-%% Nonlinear registration (DIR)  
-tic
-mkdir(resultStage1Dir);     
-fMask=[' -fMask ' '"' atlasNPDir atlasMaskN '"' ' '];  
-shellElxDIR = [elxExe ' -out ' '"' resultStage1Dir '"' '  -f ' '"' IF_NP_PFN '"' ' -m ' '"' IM_NP_PFN '"' ' ' fMask...
-                      ' -p ' '"' ParamNonlinearPFN '"' ' -t0 ' '"' TransformParamPreRegPFN '"' ' -priority ' exlPriority];                         
-logstr = [datestr(datetime) sprintf(' -- Nonlinear registration...')];
-display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);         
-[statusDIR,cmdout] = system( shellElxDIR ); 
-assert( (statusDIR==0 && exist([resultStage1Dir '\' transformLabel0],'file')),...
-    [datestr(datetime) sprintf(' -- Nonlinear registration failed.\n') elxError(cmdout) ] )  
-t=toc;
-logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
-display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']); 
+linear = true;
+
+if(linear)
+    mkdir(resultStage1Dir);
+    copyfile(TransformParamPreRegPFN, resultStage1Dir);
+else
+    %% Nonlinear registration (DIR)
+    tic
+    mkdir(resultStage1Dir);
+    fMask=[' -fMask ' '"' atlasNPDir atlasMaskN '"' ' '];
+    shellElxDIR = [elxExe ' -out ' '"' resultStage1Dir '"' '  -f ' '"' IF_NP_PFN '"' ' -m ' '"' IM_NP_PFN '"' ' ' fMask...
+        ' -p ' '"' ParamNonlinearPFN '"' ' -t0 ' '"' TransformParamPreRegPFN '"' ' -priority ' exlPriority];
+    logstr = [datestr(datetime) sprintf(' -- Nonlinear registration...')];
+    display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
+    [statusDIR,cmdout] = system( shellElxDIR );
+    assert( (statusDIR==0 && exist([resultStage1Dir '\' transformLabel0],'file')),...
+        [datestr(datetime) sprintf(' -- Nonlinear registration failed.\n') elxError(cmdout) ] )
+    t=toc;
+    logstr = [datestr(datetime) sprintf(' -- Nonlinear registration took: %g s' ,t)];
+    display(sprintf(logstr));
+    fprintf(LogFileID,[logstr '\n']);
+end
 
    
 
