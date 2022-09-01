@@ -234,7 +234,7 @@ display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
 
 % LSMchannelNP
 nbLSMchannels=1;
-stringNP=[ ' selectWindow(' scanID '.' InputImgExt '"); '...
+stringNP=[ ' selectWindow("' scanID '.' InputImgExt '"); '...
            ' run("MHD/MHA ...", "save=[' sep(NPDir) scanID  '.mhd]"); '];              
 stringNT='';
 stringGE='';
@@ -245,18 +245,16 @@ end
 if strcmp(InputImgExt,'tiff')||strcmp(InputImgExt,'tif')
 fijiOpen1=[' run("ImageJ2...", "scijavaio=true");  open("' sep(LSM_PFN) '");'];
 end
-fijiproc1=[' run("Make Composite", "display=Composite"); run("Split Channels"); '...
+fijiproc1=[
     stringNP...
-    stringNT...
-    stringGE...
     ' run("Quit"); '];
 
-stringBuffer = [ fijiOpen1 fijiproc1 ]; 
+stringBuffer = [ fijiOpen1 fijiproc1 ];
 fileID = fopen([sep(tmpDir) scanID '_lsm2mhd.txt'],'w');
 fprintf(fileID,'%s\n',stringBuffer);
 fclose(fileID);    
 
-[status,cmdout] = system([FijiExe ' --headless -macro "' sep(tmpDir) scanID '_lsm2mhd.txt"']); 
+[status,cmdout] = system([FijiExe ' --headless -macro "' sep(tmpDir) scanID '_lsm2mhd.txt"']);
 [status,cmdout] = system([ 'del  /Q  "' tmpDir scanID '_lsm2mhd.txt"']);  
 
 catch ME    
@@ -467,7 +465,8 @@ if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImg
     outDir_fiji = [dir_fiji 'TIFF\\']; mkdir(outDir_fiji);    
     fijiOpen1=[' run("MHD/MHA...", "open=[' dir_fiji 'NP\\' scanID '.mhd]");'];
     tmp1=[' run("Save", "save=[' outDir_fiji 'np.tif]");'];      
-    fijiOpen2='';fijiOpen3=''; tmp2='';tmp3='';merge2='';merge3='';    
+    fijiOpen2='';fijiOpen3=''; tmp2='';tmp3='';merge2='';merge3='';  
+    ChannelImgPFN.NT
     if ~isempty(ChannelImgPFN.NT) 
         fijiOpen2=[' run("MHD/MHA...", "open=[' dir_fiji 'NT\\' scanID '.mhd]");']; 
         tmp2=[' run("Save", "save=[' outDir_fiji 'nt.tif]");'];
@@ -479,13 +478,13 @@ if strcmp(OutputImgExt,'lsm') || strcmp(OutputImgExt,'tiff') || strcmp(OutputImg
         merge3=[' c' LSMchannelGE '=[ge.tif]'];
     end             
     fijiMerge=[' run("Merge Channels...", "c' LSMchannelNP '=[np.tif]' merge2 merge3 ' create keep");'];
-    fijiSaveTif=[' saveAs("ZIP", "' outDir_fiji  scanID '.tif.zip"); ']; 
+    fijiSaveTif=[' saveAs("' outDir_fiji  scanID '.tif"); ']; 
     stringBuffer = [ fijiOpen1 tmp1 fijiOpen2 tmp2 fijiOpen3 tmp3 fijiMerge fijiSaveTif ' close(); run("Quit");'];    
     fileID = fopen([outDir_fiji scanID '_mhd2tif.txt'],'w');
     fprintf(fileID,'%s\n',stringBuffer);
     fclose(fileID);        
     [status,cmdout] = system([FijiExe '  --headless -macro "' outDir_fiji scanID '_mhd2tif.txt"']);
-    delete( [outDir_fiji scanID '_mhd2tif.txt'], [outDir_fiji 'np.tif'], [outDir_fiji 'nt.tif'], [outDir_fiji 'ge.tif'] )    
+    delete( [outDir_fiji scanID '_mhd2tif.txt'], [outDir_fiji 'np.tif'], [outDir_fiji 'nt.tif'], [outDir_fiji 'ge.tif'] );    
     outNPDir = [OutputDir 'RegisteredScans\NP\'];
     outNTDir = [OutputDir 'RegisteredScans\NT\'];
     outGEDir = [OutputDir 'RegisteredScans\GE\'];    
