@@ -19,7 +19,7 @@ findNPChannel = varargin{2};
 
 fprintf("[Harsha] Moving file: %s\n", LSM_PFN);
 if (findNPChannel == false)
-    varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};
+    varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '', 'LSMchannelGE', ''};
 else
     % read lsm channel info
     [~, scaninf, ~] = lsminfo(LSM_PFN);

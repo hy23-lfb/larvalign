@@ -234,20 +234,10 @@ display(sprintf(logstr)),  fprintf(LogFileID,[logstr '\n']);
 
 % LSMchannelNP
 nbLSMchannels=1;
-stringNP=[ ' selectWindow("C' LSMchannelNP '-' scanID '.' InputImgExt '"); '...
+stringNP=[ ' selectWindow(' scanID '.' InputImgExt '"); '...
            ' run("MHD/MHA ...", "save=[' sep(NPDir) scanID  '.mhd]"); '];              
 stringNT='';
 stringGE='';
-if ~isempty(LSMchannelNT)
-    nbLSMchannels=nbLSMchannels+1; 
-    stringNT=[ ' selectWindow("C' LSMchannelNT '-' scanID '.' InputImgExt '"); '...
-               ' run("MHD/MHA ...", "save=[' sep(NTDir) scanID  '.mhd]"); '];    
-end
-if ~isempty(LSMchannelGE)
-    nbLSMchannels=nbLSMchannels+1; 
-    stringGE=[ ' selectWindow("C' LSMchannelGE '-' scanID '.' InputImgExt '"); '...
-               ' run("MHD/MHA ...", "save=[' sep(GEDir) scanID  '.mhd]"); '];    
-end
 
 if strcmp(InputImgExt,'lsm')
 fijiOpen1=[' run("LSM...", "open=[' sep(LSM_PFN) ']");']; 
