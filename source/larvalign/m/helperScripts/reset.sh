@@ -1,5 +1,5 @@
-sanction='C5_Flip'
-expunge='C4_Flip'
+expunge='080522_30hAPF_from3003_brain2_ncad'
+sanction='C3_30hAPF_Brp_TH_nCad_brain2_nCad_Flip'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
@@ -9,12 +9,19 @@ output_pp="${sanction}_PP.mhd"
 output_sdt="${sanction}_SDT.mhd"
 output_mask="${sanction}_MASK.mhd"
 
-echo -e "Finding PP files ...\n"
+read -p "Press [Enter] key to find PP files"
 grep -rl $input_pp /d/Harsha/Repository/larvalign/source/ | xargs sed -i "s/${input_pp}/${output_pp}/g"
-echo -e "\nFinding SDT files ...\n"
+
+read -p "Press [Enter] key to find SDT files"
 grep -rl $input_sdt /d/Harsha/Repository/larvalign/source/ | xargs sed -i "s/${input_sdt}/${output_sdt}/g"
-echo -e "\nFinding MASK files ...\n"
+
+read -p "Press [Enter] key to find MASK files"
 grep -rl $input_mask /d/Harsha/Repository/larvalign/source/ | xargs sed -i "s/${input_mask}/${output_mask}/g"
 
+read -p "Press [Enter] key to remove files from Neuropil..."
 rm /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/$expunge*
-cp  /i/Dataset/Standard_Brain/02.Standard_Brain/meta24_25percent/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+
+read -p "Press [Enter] key to copy files to Neuropil..."
+cp  /d/Harsha/01.Hiwi/Files_Hiwi/30h_APF/scaled_620x276/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+read -p "Press [Enter] key to close!"
+

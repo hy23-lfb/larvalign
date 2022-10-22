@@ -6,6 +6,26 @@
 function msg = h_MetaPipeline(srcFilePath)
 warning('off','MATLAB:MKDIR:DirectoryExists');
 
+src_filepath = convertStringsToChars(srcFilePath);
+
+dir_list = dir(src_filepath);
+len_dir  = length(dir_list);
+
+movImages = {};
+% first two entries are "." and ".." so let's ignore it.
+for dirIdx = 3:len_dir
+    filename = dir_list(dirIdx).name;
+    filepath = fullfile(src_filepath, filename);
+    if (isfile(filepath))
+        if ((endsWith(filename, '.lsm')) || (endsWith(filename, '.tif')))
+            filename = convertCharsToStrings(filename);
+			movImages = [movImages, filename];
+        end
+    end
+end
+
+
+
 %% Global Paths
 df_srcPath_prefix = 'D:\Harsha\Files_Hiwi\Output\tmp\';
 df_srcPath_suffix = '\DIR\deformationField.mhd';
@@ -16,17 +36,11 @@ avg_df_path = 'D:\Harsha\Files_Hiwi\Output\';
 % Get the image dimensions. Needed for initializing the deformation fields.
 % Dimensions of deformation fields are :
 % image_width x image_height x no_of_slices x 3
-b3_file = [srcFilePath '\C3.tif'];
+b3_file = fullfile(src_filepath, movImages(1));
 tiff_info = imfinfo(b3_file);
 tstack = imread(b3_file,1);
 [c, r] = size(tstack);
 z = size(tiff_info, 1);
-
-% Two separate arrays.
-% Used to update the name of the files in the program.
-movImages = ["'C5'", "'C4'", "'C3'", "'C3_Flip'", "'C4_Flip'", "'C5_Flip'"];
-% Used to create directories or read files from the existing directories.
-movImages_cp = ["C5", "C4", "C3", "C3_Flip", "C4_Flip", "C5_Flip"];
 
 [~, c_movImages] = size(movImages);
 numOfPairWiseRegistrations = c_movImages - 1;
@@ -36,14 +50,16 @@ fprintf("Number of pair wise registrations are %g\n", numOfPairWiseRegistrations
 debug = 1;
 saveDefFields = 1;
 
+
 %% Begin Pipeline
 srcFilePath = convertStringsToChars(srcFilePath);
 
 % Inform larvalignMain.m where the source files are stored.
 h_updateLarvalignPath(srcFilePath);
 
+
 % Iterate through each moving images.
-for itr_movImg = 1 : 1
+for itr_movImg = 2 : c_movImages
     
     % Every image (moving image) is registered against every other
     % available images (fixed images). The individual deformation fields
@@ -63,31 +79,31 @@ for itr_movImg = 1 : 1
     
     % Generate Template List for the give moving images.
     fixed_images = movImages;
-    fixed_images_cp = movImages_cp;
     
     % fixed images are all images except the current moving image.
     fixed_images(strcmp(movImages, movImages{itr_movImg})) = [];
-    fixed_images_cp(strcmp(movImages_cp, movImages_cp{itr_movImg})) = [];
+
     % c_fixImages will always be one less than c_movImages.
     [~, c_fixImages] = size(fixed_images);
     
-    mv_cp = movImages_cp{itr_movImg};
+    mv_cp = movImages{itr_movImg};
     mv_cp = convertStringsToChars(mv_cp);
-    
+    [~, mv_cp, ~] = fileparts(mv_cp);    
+
     mv_Dir = [df_dstPath_suffix mv_cp];
     mkdir(mv_Dir);
     avg_Dir = [avg_df_path mv_cp];
     mkdir(avg_Dir);
     
+    
     % Iterate through each template image and register the moving image
     % against it.
-    for itr_fixImg = 1 : c_fixImages
-        fx_cp = fixed_images_cp{itr_fixImg};
-        fx_cp = convertStringsToChars(fx_cp);
-        
+    for itr_fixImg = 1 : c_fixImages        
         % Copy template files to 'Neuropil' directory and inform relevant
         % files.
+        
         h_updateTemplateImages(fixed_images, movImages, itr_fixImg, c_movImages);
+
         pause(10);
         
         if(debug == 1)
@@ -96,6 +112,7 @@ for itr_movImg = 1 : 1
         
         % Trigger Image Registration between the moving image and the fixed
         % image.
+        
         msg = larvalignMain();
         
         defField = [df_srcPath_prefix mv_cp df_srcPath_suffix];
@@ -115,6 +132,10 @@ for itr_movImg = 1 : 1
         
         [img, ~] = read_mhd(defField);
         
+        fx_cp = fixed_images{itr_fixImg};
+        fx_cp = convertStringsToChars(fx_cp);
+        [~, fx_cp, ~] = fileparts(fx_cp);
+
         if(saveDefFields)
             figureName = [mv_cp '_' fx_cp];
             h_indDefFields(img, mv_Dir, figureName);
@@ -185,5 +206,6 @@ for itr_movImg = 1 : 1
     rmdir(avg_Dir, 's');
     
     clear img;
+%}
 end
 end

@@ -10,7 +10,7 @@ C=textscan(fid,'%s','delimiter','\n');
 fclose(fid);
 template = C{1,1};
 idxT=find(~cellfun(@isempty, strfind(template,'fm =')));
-template{idxT,1} = ['fm = ' convertStringsToChars(mv) ';'];
+template{idxT,1} = ['fm = ''' convertStringsToChars(mv) ''';'];
 fid = fopen("D:\Harsha\Repository\larvalign\source\larvalign\m\larvalignMain.m", 'w');
 fprintf(fid,'%s\n',template{:});
 fclose(fid);

@@ -1,4 +1,4 @@
-function [status, cmdout] = h_generateTemplateFiles(scount, ecount)
+function [status, cmdout] = h_generateTemplateFiles(src_filepath)
 %%
 %% Generate mhd files out of tif files.
 %%
@@ -6,20 +6,42 @@ function [status, cmdout] = h_generateTemplateFiles(scount, ecount)
 %%
 
 warning('off','MATLAB:MKDIR:DirectoryExists');
-fname_prefix = 'C';
-fname_suffix = '_Flip';
-path_suffix = 'D:\Harsha\Files_Hiwi\Datasets\Standard_Brain\meta24\';
+
+src_filepath = convertStringsToChars(src_filepath);
+
+dir_list = dir(src_filepath);
+len_dir  = length(dir_list);
+
+images = {};
+% first two entries are "." and ".." so let's ignore it.
+for dirIdx = 3:len_dir
+    filename = dir_list(dirIdx).name;
+    filepath = fullfile(src_filepath, filename);
+    if (isfile(filepath))
+        if ((endsWith(filename, '.lsm')) || (endsWith(filename, '.tif')))
+            filename = convertCharsToStrings(filename);
+			images = [images, filename];
+        end
+    end
+end
+
+count = length(images);
+
 % Create mhd files.
-[status, cmdout] = h_tif2mhd(scount, ecount, path_suffix, fname_prefix, fname_suffix);
+[status, cmdout] = h_tif2mhd(count, src_filepath, images);
 
 % for all the created files, create template files.
-for j=scount:ecount
+for j=1:count
     tic
-    i = num2str(j);
-    file=[fname_prefix i fname_suffix];
-    h_createTemplateFiles(path_suffix, file);
+    
+    [~, file, ~] = fileparts(images(j));
+    file = convertStringsToChars(file);
+
+    h_createTemplateFiles(src_filepath, file);
+    
     t = toc;
     logstr = [datestr(datetime) sprintf(' -- TemplateCreation for %g took: %g s', j, t)];
     fprintf([logstr '\n\n']);
 end
+
 end

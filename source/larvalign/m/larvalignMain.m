@@ -8,9 +8,9 @@ function msg = larvalignMain(varargin)
 % setdbprefs('errorhandling','report')
 
 OutputDir = 'D:\Harsha\Files_Hiwi\Output';
-path_sfx = 'I:\Dataset\Standard_Brain\02.Standard_Brain\meta24_25percent\';
-fm = 'C5';
-LSM_PFN=[path_sfx fm '.tif'];
+path_sfx = 'D:\Harsha\01.Hiwi\Files_Hiwi\30h_APF\scaled_620x276\';
+fm = 'C3_30hAPF_Brp_TH_nCad_brain2_nCad_Flip.tif';
+LSM_PFN=[path_sfx fm];
 varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};
 
 warning('off','all');

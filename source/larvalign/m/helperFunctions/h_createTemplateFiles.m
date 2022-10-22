@@ -7,21 +7,27 @@ function h_createTemplateFiles(path_suffix, file)
 warning('off','MATLAB:MKDIR:DirectoryExists');
 warning('off','all');
 
-file = convertStringsToChars(file);
-
-filepath = [path_suffix 'mhd\'];
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
-
 exeDir = [rootpath '\resources\exe\'];
 c3d = ['"' exeDir 'c3d.exe" '];
 
-inputfile = [filepath file '.mhd'];
-templatepath = [filepath 'template\'];
+file = convertStringsToChars(file);
+
+filepath = fullfile(path_suffix, "mhd");
+filepath = convertStringsToChars(filepath);
+
+inputfile = fullfile(filepath, [file '.mhd']);
+inputfile = convertStringsToChars(inputfile);
+
+
+templatepath = fullfile(filepath, "template");
+templatepath = convertStringsToChars(templatepath);
+
 mkdir(templatepath);
 
-ppfilename = [templatepath file '_PP.mhd'];
-sdtfilename = [templatepath file '_SDT.mhd'];
-maskfilename = [templatepath file '_MASK.mhd'];
+ppfilename      = fullfile(templatepath, [file '_PP.mhd']);
+sdtfilename     = fullfile(templatepath, [file '_SDT.mhd']);
+maskfilename    = fullfile(templatepath, [file '_MASK.mhd']);
 
 fprintf("Template for %s\n", file);
 %% create pre-processed template.

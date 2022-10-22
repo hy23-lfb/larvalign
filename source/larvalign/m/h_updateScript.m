@@ -4,15 +4,15 @@
 %%
 function h_updateScript(sc, ex)
 
-filename = "D:\Harsha\Repository\larvalign\source\larvalign\m\helperScripts\updateTemplates_24h.sh";
+filename = "D:\Harsha\Repository\larvalign\source\larvalign\m\helperScripts\update_templates.sh";
 fid = fopen(filename);
 C=textscan(fid,'%s','delimiter','\n');
 fclose(fid);
 template = C{1,1};
 idxT=find(~cellfun(@isempty, strfind(template,'sanction=')));
-template{idxT,1} = ['sanction=' sc];
+template{idxT,1} = ['sanction=''' sc ''''];
 idxT=find(~cellfun(@isempty, strfind(template,'expunge=')));
-template{idxT,1} = ['expunge=' ex];
+template{idxT,1} = ['expunge=''' ex ''''];
 fid = fopen(filename, 'w');
 fprintf(fid,'%s\n',template{:});
 fclose(fid);

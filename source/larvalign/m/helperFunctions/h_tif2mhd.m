@@ -1,4 +1,4 @@
-function [status, cmdout] = h_tif2mhd(scount, ecount, path_suffix, fname_prefix, fname_suffix)
+function [status, cmdout] = h_tif2mhd(count, filepath, images)
 %%
 %% Generate mhd files out of tif files.
 %%
@@ -8,22 +8,30 @@ warning('off','MATLAB:MKDIR:DirectoryExists');
 rootpath = 'D:\Harsha\Repository\larvalign\source\larvalign';
 FijiExe = ['"' rootpath '\resources\exe\Fiji\ImageJ-win64.exe" ' ];
 
-mhdpath = [path_suffix 'mhd\'];
+mhdpath = fullfile(filepath, "mhd");
 mkdir(mhdpath);
+
 %update this.
-tmpDir = [path_suffix 'tmp\'];
+tmpDir = fullfile(filepath, "tmp");
 mkdir(tmpDir);
 
-for j=scount:ecount
-    i = num2str(j);
-    file = append(fname_prefix, i, fname_suffix);
-    in_path = [path_suffix file '.tif'];
-    out_path = [mhdpath file '.mhd'];
+mhdpath = convertStringsToChars(mhdpath);
+tmpDir = convertStringsToChars(tmpDir);
+
+for j=1:count
+    [~, file, ~] = fileparts(images(j));
+    file = convertStringsToChars(file);
+
+
+    in_path = fullfile(filepath, images(j));
+    in_path = convertStringsToChars(in_path);
+
+    out_path = fullfile(mhdpath, [file '.mhd']);
+    out_path = convertStringsToChars(out_path);
     
     fijiOpen=[' run("ImageJ2...", "scijavaio=true");  open("' sep(in_path) '"); '];
     window = [file '.tif'];
-    fijiProc=[ 'selectWindow("' window '"); '...
-        'run("MHD/MHA ...", "save=[' sep(out_path) ']"); '];
+    fijiProc=[ 'selectWindow("' window '"); run("MHD/MHA ...", "save=[' sep(out_path) ']"); '];
     
     stringBuffer = [ fijiOpen fijiProc ' run("Quit"); '];
     
