@@ -1,5 +1,5 @@
-sanction='C3_30hAPF_Brp_TH_nCad_brain2_nCad'
-expunge='080522_30hAPF_from3003_brain_ncad_Flip'
+sanction='Flip_120422_42hAPF_from160322_brain6_nCad'
+expunge='Flip_120422_42hAPF_from160322_brain2_nCad'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
@@ -17,4 +17,4 @@ echo -e "\nFinding MASK files ...\n"
 grep -rl $input_mask /d/Harsha/Repository/larvalign/source/ | xargs sed -i "s/${input_mask}/${output_mask}/g"
 
 rm /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/$expunge*
-cp  /d/Harsha/01.Hiwi/Files_Hiwi/30h_APF/scaled_620x276/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+cp  /d/Harsha/01.Hiwi/Files_Hiwi/42h_APF/scaled_620x276/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/

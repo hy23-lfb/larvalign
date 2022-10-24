@@ -13,7 +13,7 @@ for dirIdx = 3:len_dir
     file_or_folder = dir_list(dirIdx).name;
     file_or_folder = join(rootpath, file_or_folder);
     if isfolder(file_or_folder)
-        h_traverse_and_find_tif(file_or_folder);
+        % h_traverse_and_find_tif(file_or_folder);
     else
         if(endsWith(file_or_folder, '.tif'))
             % is a tif file, so call max_projection

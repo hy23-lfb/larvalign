@@ -59,7 +59,7 @@ h_updateLarvalignPath(srcFilePath);
 
 
 % Iterate through each moving images.
-for itr_movImg = 2 : c_movImages
+for itr_movImg = 1 : c_movImages
     
     % Every image (moving image) is registered against every other
     % available images (fixed images). The individual deformation fields
@@ -137,7 +137,7 @@ for itr_movImg = 2 : c_movImages
         [~, fx_cp, ~] = fileparts(fx_cp);
 
         if(saveDefFields)
-            figureName = [mv_cp '_' fx_cp];
+            figureName = fx_cp;
             h_indDefFields(img, mv_Dir, figureName);
         end
         

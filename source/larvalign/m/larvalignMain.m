@@ -8,8 +8,8 @@ function msg = larvalignMain(varargin)
 % setdbprefs('errorhandling','report')
 
 OutputDir = 'D:\Harsha\Files_Hiwi\Output';
-path_sfx = 'D:\Harsha\01.Hiwi\Files_Hiwi\30h_APF\scaled_620x276\';
-fm = 'C3_30hAPF_Brp_TH_nCad_brain2_nCad_Flip.tif';
+path_sfx = 'D:\Harsha\01.Hiwi\Files_Hiwi\42h_APF\scaled_620x276\';
+fm = 'Flip_120422_42hAPF_from160322_brain8_nCad.tif';
 LSM_PFN=[path_sfx fm];
 varargin={'OutputDir', OutputDir, 'Method', 'FullyAutomatic', 'CPUGPU', 'CPU', 'LSM_PFN', LSM_PFN, 'LSMchannelNP', '3', 'LSMchannelNT', '2', 'LSMchannelGE', '1'};
 

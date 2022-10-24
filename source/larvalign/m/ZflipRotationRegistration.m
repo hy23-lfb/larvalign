@@ -11,9 +11,9 @@ try
     
     % reference images
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='C3_30hAPF_Brp_TH_nCad_brain2_nCad_PP.mhd';
-    templateImg2FN='C3_30hAPF_Brp_TH_nCad_brain2_nCad_PP.mhd';
-    atlasSDTN='C3_30hAPF_Brp_TH_nCad_brain2_nCad_SDT.mhd';
+    atlasLabel='Flip_120422_42hAPF_from160322_brain6_nCad_PP.mhd';
+    templateImg2FN='Flip_120422_42hAPF_from160322_brain6_nCad_PP.mhd';
+    atlasSDTN='Flip_120422_42hAPF_from160322_brain6_nCad_SDT.mhd';
     
     
     % exe
