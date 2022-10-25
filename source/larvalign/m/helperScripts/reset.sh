@@ -1,4 +1,4 @@
-expunge='48h_0610_B4_NCad_CLAHE'
+expunge='48h_brain_1812_B4_TH_cleaned'
 sanction='Flip_48h_brain_1812_B5_NCad'
 
 input_pp="${expunge}_PP.mhd"

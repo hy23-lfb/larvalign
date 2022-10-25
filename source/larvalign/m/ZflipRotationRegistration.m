@@ -131,7 +131,9 @@ try
     
     if ~useLandmarks
         if (status2~=0 && status4~=0)  % run prereg w/o SDT
+            fprintf("\n*******************\n");
             fprintf("Running without SDT\n");
+            fprintf("*******************\n\n");
             IF = ['"' atlasNPDir atlasLabel '"'];
             IM = ['"' IM_PFN '"'];
             TransformFileZflip=['"' PreRegDir  '\TransformParameters_-Z.txt"'];

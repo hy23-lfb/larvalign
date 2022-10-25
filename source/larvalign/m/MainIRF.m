@@ -206,8 +206,8 @@ try
     catch ME
         GPU_ID='No GPU information found.';
     end
-    [a cpu] = system('wmic cpu get name');
-    CPU_ID = strtrim(cpu(20:end));
+    [a cpu] = system('wmic cpu get name')
+    CPU_ID = strtrim(cpu(20:end))
     RAM_total = sprintf('%g',[round(sys.PhysicalMemory.Total/convertBGB)]);
     RAM_available = sprintf('%g',[round(sys.PhysicalMemory.Available/convertBGB)]);
     logstr = [sprintf([datestr(datetime) '\n'])...

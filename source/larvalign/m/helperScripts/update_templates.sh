@@ -1,5 +1,5 @@
 sanction='48h_brain_1812_B4_TH_cleaned'
-expunge='48h_0610_B4_NCad_CLAHE'
+expunge='48h_0610_B3_NCad_CLAHE'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"

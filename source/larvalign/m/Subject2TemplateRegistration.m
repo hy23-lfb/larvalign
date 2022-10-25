@@ -53,7 +53,13 @@ try
     logstr = [datestr(datetime) sprintf(' -- Linear registration of scan: %s' ,scanID)];
     display(sprintf(logstr));
     fprintf(LogFileID,[logstr '\n']);
+    fprintf("\n******************\n");
+    fprintf("Entering GenerateTransformParameterFile\n");
     GenerateTransformParameterFile(rootpath, CPUGPU, IM_NP_PFN, PreRegDir, LogFileID);
+    fprintf("*******************\n\n");
+    fprintf("\n******************\n");
+    fprintf("Entering ZflipRotationRegistration\n");
+    fprintf("*******************\n\n");
     TransformParamPreRegPFN = ZflipRotationRegistration(rootpath, CPUGPU, scanID, IM_NP_PFN, PreRegDir, '', '', LogFileID);
     t=toc;
     logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
