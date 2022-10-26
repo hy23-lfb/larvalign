@@ -1,5 +1,5 @@
-sanction='48h_brain_1812_B4_TH_cleaned'
-expunge='48h_0610_B3_NCad_CLAHE'
+sanction='Flip_72h_brain_2101_D4_NCad_CLAHE'
+expunge='Flip_72h_brain_2101_D3_NCad_CLAHE'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
@@ -17,4 +17,4 @@ echo -e "\nFinding MASK files ...\n"
 grep -rl $input_mask /d/Harsha/Repository/larvalign/source/ | xargs sed -i "s/${input_mask}/${output_mask}/g"
 
 rm /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/$expunge*
-cp  /d/Harsha/01.Hiwi/Files_Hiwi/48h_APF/scaled_620x276/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+cp  /d/Harsha/01.Hiwi/Files_Hiwi/72h_APF/scaled_620x276/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
