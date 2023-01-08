@@ -13,7 +13,7 @@ try
     elxExe = ['"' exeDir 'elastix.exe" '];
     c3d = ['"' exeDir 'c3d.exe" '];
     atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
-    atlasLabel='Flip_72h_brain_2101_D4_NCad_CLAHE_PP.mhd';
+    atlasLabel='Flip_96h_2208_B4_NCad_CLAHE_PP.mhd';
     templateImgPFN = [atlasNPDir atlasLabel];
     exlPriority='idle';
     

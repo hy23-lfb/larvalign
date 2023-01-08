@@ -1,5 +1,5 @@
-expunge='48h_brain_1812_B4_TH_cleaned'
-sanction='Flip_72h_brain_2101_D5_NCad_CLAHE'
+expunge='96h_brain_0203_B2_NCad_CLAHE'
+sanction='Flip_96h_brain_0203_B2_NCad_CLAHE'
 
 input_pp="${expunge}_PP.mhd"
 input_sdt="${expunge}_SDT.mhd"
@@ -22,6 +22,6 @@ read -p "Press [Enter] key to remove files from Neuropil..."
 rm /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/$expunge*
 
 read -p "Press [Enter] key to copy files to Neuropil..."
-cp  /d/Harsha/01.Hiwi/Files_Hiwi/72h_APF/scaled_620x276/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
+cp  /d/Harsha/01.Hiwi/Files_Hiwi/96h_APF/scaled_620x276/mhd/template/$sanction* /d/Harsha/Repository/larvalign/source/larvalign/resources/Templates/Neuropil/
 read -p "Press [Enter] key to close!"
 
