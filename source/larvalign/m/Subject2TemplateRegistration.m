@@ -32,7 +32,6 @@ atlasNPDir = [rootpath '\resources\Templates\Neuropil\'];
 atlasLabel='AtlasImgMedian.mhd';
 atlasMaskN='AtlasImgMedian_Mask.mhd';
 
-
 %% Registration of Subjects to Atlas   
 tStart=tic;
 logstr = [datestr(datetime) sprintf(' -- Performing fully-automatic intensity-based image registration of scan: %s' ,scanID)];
@@ -56,6 +55,10 @@ t=toc;
 logstr = [datestr(datetime) sprintf(' -- Linear registration took: %g s' ,t)];
 display(sprintf(logstr)), fprintf(LogFileID,[logstr '\n']);    
 
+%{
+mkdir(resultStage1Dir);
+copyfile(TransformParamPreRegPFN, resultStage1Dir);
+%}
 
 %% Nonlinear registration (DIR)  
 tic
